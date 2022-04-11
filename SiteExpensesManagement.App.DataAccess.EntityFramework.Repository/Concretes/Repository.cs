@@ -23,31 +23,32 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.Concr
 
         public void Delete(T entity)
         {
-            if (unitOfWork.Context.Entry(entity).State == EntityState.Detached) //Concurrency için 
+            T exist = unitOfWork.Context.Set<T>().Find(entity.Id);
+            if (exist != null)
             {
-                unitOfWork.Context.Attach(entity);
+                exist.IsDeleted = true;
+                unitOfWork.Context.Entry(entity).State = EntityState.Modified;
             }
-            unitOfWork.Context.Remove(entity);
         }
 
         public IQueryable<T> Get()
         {
-            throw new NotImplementedException();
+            return unitOfWork.Context.Set<T>().Where(x => !x.IsDeleted).AsQueryable().AsNoTracking();
         }
 
         public IQueryable<T> Get(Expression<Func<T, bool>> filter)
         {
-            throw new NotImplementedException();
+            return unitOfWork.Context.Set<T>().Where(x => !x.IsDeleted).Where(filter).AsQueryable().AsNoTracking();
         }
 
         public T GetById(int id)
         {
-            throw new NotImplementedException();
+            return unitOfWork.Context.Set<T>().Where(x => !x.IsDeleted && x.Id == id).AsNoTracking().FirstOrDefault();
         }
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            unitOfWork.Context.Entry(entity).State = EntityState.Modified;
         }
     }
 }
