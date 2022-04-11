@@ -18,6 +18,7 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations
 
             builder.Property(b => b.CreatedAt).HasDefaultValue(DateTime.Now);
             builder.Property(b => b.IsPayed).HasDefaultValue(false);
+            builder.Property(b => b.Amount).HasColumnType("decimal(18,2)");
         }
     }
 }
