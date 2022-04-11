@@ -7,11 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SiteExpensesManagement.App.DataAccess.EntityFramework;
 using SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.Abstracts;
-using SiteExpensesManagement.App.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.Concretes;
+using SiteExpensesManagement.App.Domain.Entities;
 
 namespace SiteExpensesManagement.App
 {

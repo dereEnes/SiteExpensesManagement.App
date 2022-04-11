@@ -9,5 +9,6 @@ namespace SiteExpensesManagement.App.Domain.Entities
         public string LastName { get; set; }
         public string TcNo { get; set; }
         public List<Car> Cars { get; set; }
+        public Apartment Apartment { get; set; }
     }
 }

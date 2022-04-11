@@ -4,9 +4,9 @@ using System.Text;
 
 namespace SiteExpensesManagement.App.Domain.Entities
 {
-    public class Block:BaseEntity
+    public class Rooms:BaseEntity
     {
-        public string BlokName { get; set; }
+        public string CountOfRooms { get; set; }
         public List<Apartment> Apartments { get; set; } = new List<Apartment>();
     }
 }

@@ -1,12 +1,18 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using SiteExpensesManagement.App.Domain;
+using SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations;
+using SiteExpensesManagement.App.Domain.Entities;
 
 namespace SiteExpensesManagement.App.DataAccess.EntityFramework
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        DbSet<Apartment> Apartments { get; set; }
+        DbSet<Bill> Bills { get; set; }
+        DbSet<Car> Cars { get; set; }
+        DbSet<Dues> Dues { get; set; }
+        DbSet<Rooms> RoomTypes { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -14,6 +20,11 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.ApplyConfiguration(new ApartmentConfiguration());
+            builder.ApplyConfiguration(new BillConfiguration());
+            builder.ApplyConfiguration(new CarConfiguration());
+            builder.ApplyConfiguration(new DuesConfiguration());
+            builder.ApplyConfiguration(new RoomsConfiguration());
             builder.HasDefaultSchema("Identity");
             
             builder.Entity<ApplicationUser>(entity =>
@@ -22,8 +33,6 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework
                 entity.Property<string>(x => x.FirstName).HasMaxLength(30);
                 entity.Property<string>(x => x.LastName).HasMaxLength(30);
                 entity.Property<string>(x => x.TcNo).HasMaxLength(11);
-
-
             });
 
             builder.Entity<IdentityRole>(entity =>
