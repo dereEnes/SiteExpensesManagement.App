@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.Concretes
 {
@@ -12,7 +13,10 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.Concr
         {
             this.Context = context;
         }
-
+        public Task<int> CommitAsync()
+        {
+             return this.Context.SaveChangesAsync();
+        }
         public void Commit()
         {
             this.Context.SaveChanges();

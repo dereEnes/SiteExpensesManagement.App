@@ -11,9 +11,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.22" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.22" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.22" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SiteExpensesManagement.App.Business\SiteExpensesManagement.App.Business.csproj" />
     <ProjectReference Include="..\SiteExpensesManagement.App.DataAccess.EntityFramework.Repository\SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.csproj" />
     <ProjectReference Include="..\SiteExpensesManagement.App.DataAccess.EntityFramework\SiteExpensesManagement.App.DataAccess.EntityFramework.csproj" />
     <ProjectReference Include="..\SiteExpensesManagement.App.Domain\SiteExpensesManagement.App.Domain.csproj" />

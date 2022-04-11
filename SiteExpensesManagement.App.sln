@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteExpensesManagement.App", "SiteExpensesManagement.App\SiteExpensesManagement.App.csproj", "{CBCC2439-B46A-4C71-8193-699D799638ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiteExpensesManagement.App", "SiteExpensesManagement.App\SiteExpensesManagement.App.csproj", "{CBCC2439-B46A-4C71-8193-699D799638ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteExpensesManagement.App.Business", "SiteExpensesManagement.App.Business\SiteExpensesManagement.App.Business.csproj", "{2637D1FF-FF5F-44F0-85C3-E8F798E0CF24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiteExpensesManagement.App.Business", "SiteExpensesManagement.App.Business\SiteExpensesManagement.App.Business.csproj", "{2637D1FF-FF5F-44F0-85C3-E8F798E0CF24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteExpensesManagement.App.DataAccess.EntityFramework", "SiteExpensesManagement.App.DataAccess.EntityFramework\SiteExpensesManagement.App.DataAccess.EntityFramework.csproj", "{AFC735F3-FF78-4A55-9C4E-858EA1632DDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiteExpensesManagement.App.DataAccess.EntityFramework", "SiteExpensesManagement.App.DataAccess.EntityFramework\SiteExpensesManagement.App.DataAccess.EntityFramework.csproj", "{AFC735F3-FF78-4A55-9C4E-858EA1632DDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteExpensesManagement.App.DataAccess.EntityFramework.Repository", "SiteExpensesManagement.App.DataAccess.EntityFramework.Repository\SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.csproj", "{0CF59A8A-D1C1-4D96-B1F5-01E0857BFE2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiteExpensesManagement.App.DataAccess.EntityFramework.Repository", "SiteExpensesManagement.App.DataAccess.EntityFramework.Repository\SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.csproj", "{0CF59A8A-D1C1-4D96-B1F5-01E0857BFE2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteExpensesManagement.App.Domain", "SiteExpensesManagement.App.Domain\SiteExpensesManagement.App.Domain.csproj", "{009466BC-9963-434F-A93C-6068B06AACD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiteExpensesManagement.App.Domain", "SiteExpensesManagement.App.Domain\SiteExpensesManagement.App.Domain.csproj", "{009466BC-9963-434F-A93C-6068B06AACD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{3DC67AFA-2962-436A-A6CB-B08167D01F0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{009466BC-9963-434F-A93C-6068B06AACD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{009466BC-9963-434F-A93C-6068B06AACD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{009466BC-9963-434F-A93C-6068B06AACD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DC67AFA-2962-436A-A6CB-B08167D01F0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DC67AFA-2962-436A-A6CB-B08167D01F0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DC67AFA-2962-436A-A6CB-B08167D01F0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DC67AFA-2962-436A-A6CB-B08167D01F0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

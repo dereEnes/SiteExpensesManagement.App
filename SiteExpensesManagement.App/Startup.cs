@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SiteExpensesManagement.App.Business.Abstracts;
+using SiteExpensesManagement.App.Business.Concretes;
 using SiteExpensesManagement.App.DataAccess.EntityFramework;
 using SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.Abstracts;
 using SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.Concretes;
@@ -36,6 +38,8 @@ namespace SiteExpensesManagement.App
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+
+            services.AddTransient<IApartmentService,ApartmentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

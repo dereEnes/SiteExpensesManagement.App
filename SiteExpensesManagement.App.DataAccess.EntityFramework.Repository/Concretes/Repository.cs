@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.Concretes
 {
@@ -31,8 +32,9 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.Concr
             }
         }
 
-        public IQueryable<T> Get()
+        public IQueryable<T> GetAll()
         {
+            //return await unitOfWork.Context.Set<T>().Where(x => !x.IsDeleted).ToListAsync();
             return unitOfWork.Context.Set<T>().Where(x => !x.IsDeleted).AsQueryable().AsNoTracking();
         }
 

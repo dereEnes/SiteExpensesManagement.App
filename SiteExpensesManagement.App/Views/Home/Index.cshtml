@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@using SiteExpensesManagement.App.Domain.Entities
+@inject UserManager<ApplicationUser> userManager
+@{
     ViewData["Title"] = "Home Page";
 }
 

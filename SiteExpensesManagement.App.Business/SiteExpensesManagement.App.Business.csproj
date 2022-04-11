@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SiteExpensesManagement.App.DataAccess.EntityFramework.Repository\SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.csproj" />
+    <ProjectReference Include="..\SiteExpensesManagement.App.Domain\SiteExpensesManagement.App.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
