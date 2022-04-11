@@ -14,6 +14,8 @@ namespace SiteExpensesManagement.App.Domain.Entities
         public RoomType RoomType { get; set; }
         public int ApartmenNo { get; set; }
         public byte FloorNumber { get; set; }
-        public bool IsEmpty { get; set; } 
-    }
+        public bool IsEmpty { get; set; }
+        public List<Dues> Dues { get; set; } = new List<Dues>();
+        public List<Bill> Bills { get; set; } = new List<Bill>();
+    } 
 }
