@@ -7,7 +7,7 @@ namespace SiteExpensesManagement.App.Domain.Entities
 {
     public class Apartment:BaseEntity
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public ApplicationUser User { get; set; }
         public Blocks Block { get; set; }
         public int RoomTypeId { get; set; }

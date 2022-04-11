@@ -6,7 +6,7 @@ namespace SiteExpensesManagement.App.Domain.Entities
 {
     public class Car:BaseEntity
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public ApplicationUser User { get; set; }
         public string LicencePlate { get; set; }
     }
