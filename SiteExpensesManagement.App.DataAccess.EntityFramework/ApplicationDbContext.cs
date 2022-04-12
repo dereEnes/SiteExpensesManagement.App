@@ -32,7 +32,7 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework
                 entity.ToTable("Users");
                 entity.Property<string>(x => x.FirstName).HasMaxLength(30);
                 entity.Property<string>(x => x.LastName).HasMaxLength(30);
-                entity.Property<string>(x => x.TcNo).HasMaxLength(11);
+                entity.Property<string>(x => x.IdentityNumber).HasMaxLength(11);
             });
 
             builder.Entity<IdentityRole>(entity =>
