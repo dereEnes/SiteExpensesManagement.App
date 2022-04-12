@@ -6,12 +6,12 @@ namespace Contracts.Dtos.Apartment
 {
     public class ApartmentForCreateDto
     {
+        public int? UserId { get; set; }
+        public int BlokId { get; set; }
+
 
     }
-    public class ApartmentForUpdateDto
-    {
-
-    }
+    
     public class ApartmentDto
     {
         //public string UserId { get; set; }

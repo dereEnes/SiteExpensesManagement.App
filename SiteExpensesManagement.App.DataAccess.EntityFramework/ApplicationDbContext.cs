@@ -12,7 +12,7 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework
         DbSet<Bill> Bills { get; set; }
         DbSet<Car> Cars { get; set; }
         DbSet<Dues> Dues { get; set; }
-        DbSet<Rooms> RoomTypes { get; set; }
+        DbSet<RoomType> RoomTypes { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -24,7 +24,7 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework
             builder.ApplyConfiguration(new BillConfiguration());
             builder.ApplyConfiguration(new CarConfiguration());
             builder.ApplyConfiguration(new DuesConfiguration());
-            builder.ApplyConfiguration(new RoomsConfiguration());
+            builder.ApplyConfiguration(new RoomTypeConfiguration());
             builder.HasDefaultSchema("Identity");
             
             builder.Entity<ApplicationUser>(entity =>

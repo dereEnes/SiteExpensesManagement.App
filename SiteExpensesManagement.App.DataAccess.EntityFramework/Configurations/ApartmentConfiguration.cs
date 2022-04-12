@@ -19,7 +19,7 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations
                 .WithOne(au => au.Apartment)
                 .HasForeignKey<Apartment>(a => a.UserId);
 
-            builder.HasOne<Rooms>(a => a.RoomType)
+            builder.HasOne<RoomType>(a => a.RoomType)
                 .WithMany(r => r.Apartments)
                 .HasForeignKey(a => a.RoomTypeId);
 

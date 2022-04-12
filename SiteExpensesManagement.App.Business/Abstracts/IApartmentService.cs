@@ -1,14 +1,16 @@
-﻿using SiteExpensesManagement.App.Domain.Entities;
-using System;
+﻿using Contracts.Dtos.Apartment;
+using Contracts.Result;
+using SiteExpensesManagement.App.Domain.Entities;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SiteExpensesManagement.App.Business.Abstracts
 {
     public interface IApartmentService
     {
-        Task<Apartment> GetById(int id);
-        List<Apartment> GetAll();
+        IResult Add(ApartmentForCreateDto apartmentForCreateDto);
+        IResult Update(ApartmentForCreateDto apartmentForCreateDto);
+        IResult Delete(int id);
+        IDataResult<Apartment> GetById(int id);
+        IDataResult<List<Apartment>> GetAll();
     }
 }

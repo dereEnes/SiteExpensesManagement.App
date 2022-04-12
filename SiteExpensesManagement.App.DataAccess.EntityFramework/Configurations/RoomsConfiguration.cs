@@ -5,11 +5,11 @@ using System;
 
 namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations
 {
-    public class RoomsConfiguration : IEntityTypeConfiguration<Rooms>
+    public class RoomTypeConfiguration : IEntityTypeConfiguration<RoomType>
     {
-        public void Configure(EntityTypeBuilder<Rooms> builder)
+        public void Configure(EntityTypeBuilder<RoomType> builder)
         {
-            builder.ToTable("Beds");
+            builder.ToTable("RoomTypes");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.CreatedAt).HasDefaultValue(DateTime.Now);
             builder.Property(x => x.IsDeleted).HasDefaultValue(false);

@@ -11,7 +11,7 @@ namespace SiteExpensesManagement.App.Domain.Entities
         public ApplicationUser User { get; set; }
         public Blocks Block { get; set; }
         public int RoomTypeId { get; set; }
-        public Rooms RoomType { get; set; }
+        public RoomType RoomType { get; set; }
         public int ApartmenNo { get; set; }
         public byte FloorNumber { get; set; }
         public bool IsEmpty { get; set; }

@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -11,6 +12,7 @@ using SiteExpensesManagement.App.DataAccess.EntityFramework;
 using SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.Abstracts;
 using SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.Concretes;
 using SiteExpensesManagement.App.Domain.Entities;
+using System;
 
 namespace SiteExpensesManagement.App
 {
@@ -26,6 +28,7 @@ namespace SiteExpensesManagement.App
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
