@@ -1,5 +1,5 @@
-﻿using Contracts.Dtos.Apartment;
-using Contracts.Result;
+﻿using SiteExpensesManagement.App.Contracts.Dtos.Apartment;
+using SiteExpensesManagement.App.Contracts.Dtos.Result;
 using SiteExpensesManagement.App.Domain.Entities;
 using System.Collections.Generic;
 

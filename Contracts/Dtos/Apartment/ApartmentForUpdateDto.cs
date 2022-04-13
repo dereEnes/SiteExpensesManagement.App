@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Contracts.Dtos.Apartment
+namespace SiteExpensesManagement.App.Contracts.Dtos.Apartment
 {
     public class ApartmentForUpdateDto
     {

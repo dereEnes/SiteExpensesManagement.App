@@ -9,7 +9,7 @@ namespace SiteExpensesManagement.App.Domain.Enums
         A=0,
         B=1,
         C=2,
-        D=3,
+        D=7,
         E=4,
         F=5,
         G=6

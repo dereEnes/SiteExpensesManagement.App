@@ -1,4 +1,4 @@
-﻿namespace Contracts.Result
+﻿namespace SiteExpensesManagement.App.Contracts.Dtos.Result
 {
     public class DataResult<T>: Result,IDataResult<T>
     {

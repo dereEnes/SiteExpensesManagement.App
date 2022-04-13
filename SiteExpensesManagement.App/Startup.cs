@@ -43,6 +43,14 @@ namespace SiteExpensesManagement.App
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
 
             services.AddTransient<IApartmentService,ApartmentService>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                builder => builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

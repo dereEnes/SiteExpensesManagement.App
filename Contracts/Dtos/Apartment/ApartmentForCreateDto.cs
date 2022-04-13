@@ -1,14 +1,18 @@
-﻿using System;
+﻿using SiteExpensesManagement.App.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Contracts.Dtos.Apartment
+namespace SiteExpensesManagement.App.Contracts.Dtos.Apartment
 {
     public class ApartmentForCreateDto
     {
-        public int? UserId { get; set; }
-        public int BlokId { get; set; }
-
+        public string UserId { get; set; }
+        public Blocks Block { get; set; }
+        public int RoomTypeId { get; set; }
+        public int ApartmentNo { get; set; }
+        public byte FloorNumber { get; set; }
+        public bool IsEmpty { get; set; }
 
     }
     

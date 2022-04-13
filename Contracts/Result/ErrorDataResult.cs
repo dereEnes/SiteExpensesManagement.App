@@ -1,5 +1,4 @@
-﻿namespace Contracts.Result
-{
+﻿namespace SiteExpensesManagement.App.Contracts.Dtos.Result { 
     public class ErrorDataResult<T>:DataResult<T>
     {
         public ErrorDataResult(T data,string message):base(data,false,message)

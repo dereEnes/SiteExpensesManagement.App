@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiteExpensesManagement.App.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiteExpensesManagement.App.Domain", "SiteExpensesManagement.App.Domain\SiteExpensesManagement.App.Domain.csproj", "{009466BC-9963-434F-A93C-6068B06AACD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{3DC67AFA-2962-436A-A6CB-B08167D01F0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiteExpensesManagement.App.Contracts", "Contracts\SiteExpensesManagement.App.Contracts.csproj", "{3DC67AFA-2962-436A-A6CB-B08167D01F0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

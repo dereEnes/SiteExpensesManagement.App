@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
-using Contracts.Dtos.Apartment;
-using Contracts.Result;
+using FluentValidation.Results;
 using SiteExpensesManagement.App.Business.Abstracts;
+using SiteExpensesManagement.App.Business.Validations.FluentValidation;
+using SiteExpensesManagement.App.Contracts.Dtos.Apartment;
+using SiteExpensesManagement.App.Contracts.Dtos.Result;
 using SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.Abstracts;
 using SiteExpensesManagement.App.Domain.Entities;
 using System;
@@ -39,7 +41,8 @@ namespace SiteExpensesManagement.App.Business.Concretes
 
         public IDataResult<List<Apartment>> GetAll()
         {
-            throw new NotImplementedException();
+            var result = _repository.GetAll();
+            return new SuccessDataResult<List<Apartment>>(result.ToList());
         }
 
         public IDataResult<Apartment> GetById(int id)

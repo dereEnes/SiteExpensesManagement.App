@@ -10,5 +10,6 @@ namespace SiteExpensesManagement.App.Domain.Entities
         public string IdentityNumber { get; set; }
         public List<Car> Cars { get; set; }
         public Apartment Apartment { get; set; }
+        public List<Message> Messages { get; set; }
     }
 }
