@@ -15,4 +15,8 @@
     <PackageReference Include="FluentValidation.AspNetCore" Version="10.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Validations\FluentValidation\ApartmentValidations\" />
+  </ItemGroup>
+
 </Project>

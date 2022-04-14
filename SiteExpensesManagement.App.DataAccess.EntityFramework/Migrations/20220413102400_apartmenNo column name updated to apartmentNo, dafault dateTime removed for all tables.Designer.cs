@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SiteExpensesManagement.App.DataAccess.EntityFramework;
 
 namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220413102400_apartmenNo column name updated to apartmentNo, dafault dateTime removed for all tables")]
+    partial class apartmenNocolumnnameupdatedtoapartmentNodafaultdateTimeremovedforalltables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,7 +178,9 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<bool>("IsEmpty")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<int>("RoomTypeId")
                         .HasColumnType("int");
@@ -322,7 +326,7 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 4, 13, 15, 0, 23, 954, DateTimeKind.Local).AddTicks(6063));
+                        .HasDefaultValue(new DateTime(2022, 4, 13, 13, 24, 0, 398, DateTimeKind.Local).AddTicks(6899));
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -396,7 +400,9 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("hasRead")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.HasKey("Id");
 
@@ -417,7 +423,9 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Migrations
                         .HasMaxLength(50);
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2022, 4, 13, 13, 24, 0, 400, DateTimeKind.Local).AddTicks(9142));
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()

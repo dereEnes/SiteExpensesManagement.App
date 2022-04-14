@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\Apartment\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SiteExpensesManagement.App.Domain\SiteExpensesManagement.App.Domain.csproj" />
   </ItemGroup>
 

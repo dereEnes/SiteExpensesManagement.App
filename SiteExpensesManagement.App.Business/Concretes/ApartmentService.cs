@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using FluentValidation.Results;
+using Microsoft.EntityFrameworkCore;
 using SiteExpensesManagement.App.Business.Abstracts;
 using SiteExpensesManagement.App.Business.Validations.FluentValidation;
 using SiteExpensesManagement.App.Contracts.Dtos.Apartment;
 using SiteExpensesManagement.App.Contracts.Dtos.Result;
+using SiteExpensesManagement.App.Contracts.ViewModels.Apartment;
 using SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.Abstracts;
 using SiteExpensesManagement.App.Domain.Entities;
 using System;
@@ -30,24 +32,33 @@ namespace SiteExpensesManagement.App.Business.Concretes
         public IResult Add(ApartmentForCreateDto apartmentForCreateDto)
         {
             var apartmentToAdd = _mapper.Map<Apartment>(apartmentForCreateDto);
-            var a = 5;
+            apartmentToAdd.CreatedAt = DateTime.Now;
+            apartmentToAdd.IsEmpty = false;
+            _repository.Add(apartmentToAdd);
+            _unitOfWork.Commit();
             return new SuccessResult("Eklendi");
         }
 
         public IResult Delete(int id)
         {
-            throw new NotImplementedException();
+            var apartmentToDelete = _repository.GetById(id);
+            if (apartmentToDelete is null)
+            {
+                return new ErrorResult("Apartman bulunamadı!");
+            }
+            return new SuccessResult("Silindi");
         }
 
-        public IDataResult<List<Apartment>> GetAll()
+        public IDataResult<List<ApartmentViewModel>> GetAll()
         {
-            var result = _repository.GetAll();
-            return new SuccessDataResult<List<Apartment>>(result.ToList());
+            var result = _mapper.Map<List<ApartmentViewModel>>(_repository.GetAll().Include(x => x.User).Include(x => x.RoomType));
+            return new SuccessDataResult<List<ApartmentViewModel>>(result);
         }
 
-        public IDataResult<Apartment> GetById(int id)
+        public IDataResult<ApartmentViewModel> GetById(int id)
         {
-            throw new NotImplementedException();
+            var result = _mapper.Map<ApartmentViewModel>(_repository.GetById(id));
+            return new SuccessDataResult<ApartmentViewModel>(result,"Apartman getirildi.");
         }
 
         public IResult Update(ApartmentForCreateDto apartmentForCreateDto)

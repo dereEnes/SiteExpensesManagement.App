@@ -16,7 +16,6 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations
                 .WithMany(a => a.Dues)
                 .HasForeignKey(b => b.ApartmentId);
 
-            builder.Property(d => d.CreatedAt).HasDefaultValue(DateTime.Now);
             builder.Property(d => d.IsPayed).HasDefaultValue(false);
             builder.Property(d => d.Amount).HasColumnType("decimal(18,2)");
         }

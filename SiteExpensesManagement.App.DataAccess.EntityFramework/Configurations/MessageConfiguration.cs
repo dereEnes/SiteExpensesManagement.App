@@ -13,13 +13,12 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations
         {
             builder.ToTable("Messages");
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.hasRead).HasDefaultValue(false);
 
             builder.HasOne<ApplicationUser>(m => m.Sender)
                 .WithMany(au => au.Messages)
                 .HasForeignKey(m => m.SenderId);
 
-            builder.Property(a => a.CreatedAt).HasDefaultValue(DateTime.Now);
+            
             builder.Property(a => a.IsDeleted).HasDefaultValue(false);
         }
     }

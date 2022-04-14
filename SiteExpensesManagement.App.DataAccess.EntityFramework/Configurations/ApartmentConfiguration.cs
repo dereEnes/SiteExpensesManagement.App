@@ -13,7 +13,6 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations
         {
             builder.ToTable("Apartments");
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.IsEmpty).HasDefaultValue(true);
 
             builder.HasOne<ApplicationUser>(a => a.User)
                 .WithOne(au => au.Apartment)
@@ -23,7 +22,6 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations
                 .WithMany(r => r.Apartments)
                 .HasForeignKey(a => a.RoomTypeId);
 
-            builder.Property(a => a.CreatedAt).HasDefaultValue(DateTime.Now);
             builder.Property(a => a.IsDeleted).HasDefaultValue(false);
         }
     }

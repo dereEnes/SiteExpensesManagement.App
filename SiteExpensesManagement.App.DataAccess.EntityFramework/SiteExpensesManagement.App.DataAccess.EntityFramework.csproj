@@ -7,6 +7,10 @@
   <ItemGroup>
     <Compile Remove="Migrations\20220409221510_ApplicationUserAdded.cs" />
     <Compile Remove="Migrations\20220409221510_ApplicationUserAdded.Designer.cs" />
+    <Compile Remove="Migrations\20220413102205_apartmenNo column name updated to apartmentNo.cs" />
+    <Compile Remove="Migrations\20220413102205_apartmenNo column name updated to apartmentNo.Designer.cs" />
+    <Compile Remove="Migrations\20220413115832_IsEmpty,hasRead default value removed.cs" />
+    <Compile Remove="Migrations\20220413115832_IsEmpty,hasRead default value removed.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

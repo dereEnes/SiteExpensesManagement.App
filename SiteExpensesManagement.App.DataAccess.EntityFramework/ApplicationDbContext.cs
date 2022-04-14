@@ -27,6 +27,7 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework
             builder.ApplyConfiguration(new DuesConfiguration());
             builder.ApplyConfiguration(new RoomTypeConfiguration());
             builder.ApplyConfiguration(new MessageConfiguration());
+
             builder.HasDefaultSchema("Identity");
             
             builder.Entity<ApplicationUser>(entity =>

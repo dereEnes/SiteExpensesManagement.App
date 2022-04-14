@@ -1,0 +1,27 @@
+﻿@using SiteExpensesManagement.App.Contracts.ViewModels
+@model List<RoomTypeViewModel>
+<h1>Oda Tipleri</h1>
+<table class="table table-striped table-dark">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Oda Tipi</th>
+            <th>Oluşturma Tarihi</th>
+            <th>Güncelle</th>
+            <th>Sil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (RoomTypeViewModel room in Model)
+        {
+         <tr>
+            <td>@room.Id</td>
+            <td>@room.CountOfRooms</td>
+            <td>@room.CreatedAt</td>
+            <td><a asp-action="Edit" asp-route-id="@room.Id" class="btn btn-warning">Güncelle</a></td>
+            <td><a asp-action="Delete" asp-route-id="@room.Id" class="btn btn-danger">Sil</a></td>
+        </tr>   
+        }
+    </tbody>
+    <tfoot></tfoot>
+</table>

@@ -1,4 +1,33 @@
-﻿@Model List<Apartment>
-<h1>
-    Apartmanlar
-</h1>
+﻿@using SiteExpensesManagement.App.Contracts.ViewModels.Apartment
+@model List<ApartmentViewModel>
+<h1>Apartmanlar</h1>
+<table class="table table-striped table-dark">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Blok</th>
+            <th>Oda Tipi</th>
+            <th>Kat Numarası</th>
+            <th>Daire Numarası</th>
+            <th>Oturan</th>
+            <th>Güncelle</th>
+            <th>Sil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ApartmentViewModel apartment in Model)
+        {
+         <tr>
+            <td>@apartment.Id</td>
+            <td>@apartment.Block</td>
+            <td>@apartment.RoomType.CountOfRooms</td>
+            <td>@apartment.FloorNumber</td>
+            <td>@apartment.ApartmentNo</td>
+            <td>@apartment.User.FirstName @apartment.User.LastName</td>
+            <td><a asp-action="Edit" asp-route-id="@apartment.Id" class="btn btn-warning">Güncelle</a></td>
+            <td><a asp-action="Delete" asp-route-id="@apartment.Id" class="btn btn-danger">Sil</a></td>
+        </tr>   
+        }
+    </tbody>
+    <tfoot></tfoot>
+</table>

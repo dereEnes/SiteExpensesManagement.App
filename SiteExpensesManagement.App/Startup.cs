@@ -42,7 +42,9 @@ namespace SiteExpensesManagement.App
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
 
-            services.AddTransient<IApartmentService,ApartmentService>();
+            services.AddTransient<IApartmentService, ApartmentService>();
+            services.AddTransient<IRoomTypeService, RoomTypeService>();
+            services.AddTransient<ICarService, CarService>();
 
             services.AddCors(options =>
             {
@@ -67,6 +69,8 @@ namespace SiteExpensesManagement.App
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            //app.ConfigureCustomExceptionMiddleware();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

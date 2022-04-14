@@ -11,7 +11,6 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations
         {
             builder.ToTable("RoomTypes");
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.CreatedAt).HasDefaultValue(DateTime.Now);
             builder.Property(x => x.IsDeleted).HasDefaultValue(false);
             builder.Property(x => x.CountOfRooms).HasMaxLength(50);
         }

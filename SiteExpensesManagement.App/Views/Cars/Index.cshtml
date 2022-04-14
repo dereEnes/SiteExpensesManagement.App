@@ -1,0 +1,27 @@
+﻿@using SiteExpensesManagement.App.Contracts.ViewModels.Car
+@model List<CarViewModel>
+<h1>Oda Tipleri</h1>
+<table class="table table-striped table-dark">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Ad Soyad</th>
+            <th>Plaka Numarası</th>
+            <th>Güncelle</th>
+            <th>Sil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (CarViewModel car in Model)
+        {
+         <tr>
+            <td>@car.Id</td>
+            <td>@car.User.FirstName @car.User.LastName</td>
+            <td>@car.LicencePlate</td>
+            <td><a asp-action="Edit" asp-route-id="@car.Id" class="btn btn-warning">Güncelle</a></td>
+            <td><a asp-action="Delete" asp-route-id="@car.Id" class="btn btn-danger">Sil</a></td>
+        </tr>   
+        }
+    </tbody>
+    <tfoot></tfoot>
+</table>
