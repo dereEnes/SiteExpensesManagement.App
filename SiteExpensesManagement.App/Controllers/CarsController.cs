@@ -1,5 +1,4 @@
 ﻿using FluentValidation.Results;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SiteExpensesManagement.App.Business.Abstracts;
@@ -38,7 +37,6 @@ namespace SiteExpensesManagement.App.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(CarForAddDto carForAddDto)
         {
             CarForAddDtoValidator categoryValidator = new CarForAddDtoValidator();
@@ -49,19 +47,25 @@ namespace SiteExpensesManagement.App.Controllers
                 {
                     ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
                 }
-                return View();
+
             }
-            var result = _carService.Add(carForAddDto);
-            return RedirectToAction("Index");
+            else
+            {
+                var result = _carService.Add(carForAddDto);
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.Users = GetUsers();
+            return View();
         }
 
         public ActionResult Create()
         {
-            ViewBag.Users = getUsers();
+            ViewBag.Users = GetUsers();
             return View();
         }
         [NonAction]// Ortak kullanım için oluşturulmalı
-        public List<UserForSelectItem> getUsers()
+        public List<UserForSelectItem> GetUsers()
         {
             return _userManager.Users.Select(u =>
                 new UserForSelectItem
@@ -73,7 +77,12 @@ namespace SiteExpensesManagement.App.Controllers
         // GET: CarsController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(_carService.GetById(id));
+            var result = _carService.GetById(id);
+            if (result.Success)
+            {
+                return View(result.Data);
+            }
+            return NotFound();
         }
 
         // POST: CarsController/Edit/5

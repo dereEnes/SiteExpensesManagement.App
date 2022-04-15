@@ -18,7 +18,8 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations
                 .WithMany(au => au.Messages)
                 .HasForeignKey(m => m.SenderId);
 
-            
+            builder.Property(x => x.Header).HasMaxLength(20);
+            builder.Property(x => x.Content).HasMaxLength(250);
             builder.Property(a => a.IsDeleted).HasDefaultValue(false);
         }
     }

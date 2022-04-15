@@ -36,8 +36,9 @@ namespace SiteExpensesManagement.App
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
+
             services.AddControllersWithViews();
-            services.AddRazorPages();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
@@ -45,6 +46,8 @@ namespace SiteExpensesManagement.App
             services.AddTransient<IApartmentService, ApartmentService>();
             services.AddTransient<IRoomTypeService, RoomTypeService>();
             services.AddTransient<ICarService, CarService>();
+            services.AddTransient<IMessageService, MessageService>();
+
 
             services.AddCors(options =>
             {

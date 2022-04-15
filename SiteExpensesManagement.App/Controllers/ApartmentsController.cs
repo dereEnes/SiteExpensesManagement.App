@@ -81,17 +81,16 @@ namespace SiteExpensesManagement.App.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id is null)
+            var result = _apartmentService.GetById(id);
+            if (result.Success)
             {
-                return NotFound();
+                ViewBag.Users = GetUsers();
+                ViewBag.RoomTypes = GetRoomTypes();
+                return View(result.Data);
             }
-
-            var result = _apartmentService.GetById(id.Value);
-            ViewBag.Users = GetUsers();
-            ViewBag.RoomTypes = GetRoomTypes();
-            return View(result.Data);
+            return NotFound();
         }
 
         [HttpPost]
@@ -107,25 +106,19 @@ namespace SiteExpensesManagement.App.Controllers
                 return View();
             }
         }
-
+        [HttpGet]
         public ActionResult Delete(int id)
         {
             var result = _apartmentService.GetById(id);
-            return View(result);
+            return View(result.Data);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _apartmentService.Delete(id);
+            return RedirectToAction("Index");
         }
     }
 }

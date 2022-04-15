@@ -57,13 +57,25 @@ namespace SiteExpensesManagement.App.Business.Concretes
 
         public IDataResult<ApartmentViewModel> GetById(int id)
         {
-            var result = _mapper.Map<ApartmentViewModel>(_repository.GetById(id));
+            var result = new ApartmentViewModel();
+            try
+            {
+                 result = _mapper.Map<ApartmentViewModel>(_repository.Get(x => x.Id == id).Include(x => x.User).Include(x => x.RoomType).FirstOrDefault());
+            }
+            catch (Exception)
+            {
+                return new ErrorDataResult<ApartmentViewModel>("Hata oluştu");
+                throw;
+            }
             return new SuccessDataResult<ApartmentViewModel>(result,"Apartman getirildi.");
         }
 
-        public IResult Update(ApartmentForCreateDto apartmentForCreateDto)
+        public IResult Update(ApartmentForUpdateDto apartmentForCreateDto)
         {
-            throw new NotImplementedException();
+            var result = _mapper.Map<Apartment>(apartmentForCreateDto);
+            _repository.Update(result);
+            _unitOfWork.Commit();
+            return new SuccessResult("Apartman güncellendi");
         }
     }
 }

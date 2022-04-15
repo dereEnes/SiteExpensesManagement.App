@@ -14,7 +14,10 @@ namespace SiteExpensesManagement.App.Business.Mappers.AutoMapper
         {
             CreateMap<CarForUpdateDto,Car>();
             CreateMap<CarForAddDto, Car>();
-            CreateMap<Car, CarViewModel>();
+            CreateMap<Car, CarViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.User, opt => opt.MapFrom(src => src.User))
+                .ForMember(dest => dest.LicencePlate, opt => opt.MapFrom(src => src.LicencePlate));
            // CreateMap<List<Car>, List<CarViewModel>>();
         }
     }

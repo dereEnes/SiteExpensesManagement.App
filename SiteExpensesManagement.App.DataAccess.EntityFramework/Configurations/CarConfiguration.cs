@@ -12,8 +12,6 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations
             builder.ToTable("Cars");
             builder.HasKey(x => x.Id);
 
-            builder.Property(c => c.CreatedAt).HasDefaultValue(DateTime.Now);
-            builder.Property(c => c.IsDeleted).HasDefaultValue(false);
             builder.Property(c => c.LicencePlate).HasMaxLength(20);
 
             builder.HasOne<ApplicationUser>(c => c.User)
