@@ -45,7 +45,7 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.Concr
 
         public T GetById(int id)
         {
-            return unitOfWork.Context.Set<T>().Where(x => !x.IsDeleted && x.Id == id).AsNoTracking().FirstOrDefault();
+            return unitOfWork.Context.Set<T>().Where(x => !x.IsDeleted && x.Id == id).FirstOrDefault();
         }
 
         public void Update(T entity)

@@ -18,7 +18,7 @@ using UserIdentityManagement.Web.Enums;
 
 namespace SiteExpensesManagement.App.Areas.Identity.Pages.Account
 {
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin")]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -107,7 +107,7 @@ namespace SiteExpensesManagement.App.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("Kullanıcı EKlendi");
                     await _userManager.AddToRoleAsync(user,Roles.Basic.ToString());
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -118,8 +118,8 @@ namespace SiteExpensesManagement.App.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    await _emailSender.SendEmailAsync(Input.Email, "Email Adresini Onaylayın",
+                        $"Lütfen Linki Kullanarak <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>Email adresinizi onaylayın</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
@@ -127,8 +127,9 @@ namespace SiteExpensesManagement.App.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        return RedirectToAction("Index", "Home");
+                        //await _signInManager.SignInAsync(user, isPersistent: false);
+                        //return LocalRedirect(returnUrl);
                     }
                 }
                 foreach (var error in result.Errors)

@@ -22,7 +22,7 @@
         {
          <tr>
             <td>@car.Id</td>
-            <td>@car.User.FirstName @car.User.LastName</td>
+            <td>@car.User.FirstName.ToUpper() @car.User.LastName.ToUpper()</td>
             <td>@car.LicencePlate</td>
             <td><a asp-action="Edit" asp-route-id="@car.Id" class="btn btn-warning">Güncelle</a></td>
             <td><a asp-action="Delete" asp-route-id="@car.Id" class="btn btn-danger">Sil</a></td>

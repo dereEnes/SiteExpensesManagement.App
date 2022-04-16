@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SiteExpensesManagement.App.Business.Abstracts;
+using SiteExpensesManagement.App.Contracts.Dtos;
 using SiteExpensesManagement.App.Contracts.Dtos.Result;
 using SiteExpensesManagement.App.Contracts.ViewModels;
 using SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.Abstracts;
@@ -24,6 +25,19 @@ namespace SiteExpensesManagement.App.Business.Concretes
             _mapper = mapper;
         }
 
+        public IResult Add(RoomTypeForAddDto roomTypeForAddDto)
+        {
+            if (IsRoomAlreadyExist(roomTypeForAddDto.CountOfRooms))
+            {
+                return new ErrorResult("Böyle bir oda tipi zaten var");
+            }
+            var roomTypeToAdd = _mapper.Map<RoomType>(roomTypeForAddDto);
+            roomTypeToAdd.CreatedAt = DateTime.Now;
+            _repository.Add(roomTypeToAdd);
+            _unitOfWork.Commit();
+            return new SuccessResult("Eklendi");
+        }
+
         public IResult Delete(int id)
         {
             var result = _repository.GetById(id);
@@ -38,7 +52,7 @@ namespace SiteExpensesManagement.App.Business.Concretes
 
         public IDataResult<List<RoomTypeViewModel>> GetAll()
         {
-            var result = _mapper.Map<List<RoomTypeViewModel>>(_repository.GetAll().ToList());
+            var result = _mapper.Map<List<RoomTypeViewModel>>(_repository.GetAll());
             return new SuccessDataResult<List<RoomTypeViewModel>>(result);
         }
 
@@ -50,6 +64,24 @@ namespace SiteExpensesManagement.App.Business.Concretes
                 return new ErrorDataResult<RoomTypeViewModel>("Böyle bir id bulunamadı!");
             }
             return new SuccessDataResult<RoomTypeViewModel>(result);
+        }
+
+        public IResult Update(RoomTypeForUpdateDto roomTypeForUpdateDto)
+        {
+            var result = _repository.GetById(roomTypeForUpdateDto.Id);
+            result.CountOfRooms = roomTypeForUpdateDto.CountOfRooms;
+            _repository.Update(result);
+            _unitOfWork.Commit();
+            return new SuccessResult("Güncellendi!");
+        }
+        public bool IsRoomAlreadyExist(string room)
+        {
+            var result = _repository.Get(x => x.CountOfRooms == room).SingleOrDefault();
+            if (result is null)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

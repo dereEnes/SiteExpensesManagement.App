@@ -45,14 +45,16 @@ namespace SiteExpensesManagement.App.Business.Concretes
             {
                 return new ErrorResult("Mesaj Bulunamadı!");
             }
+            _repository.Delete(result);
             _unitOfWork.Commit();
             return new SuccessResult("Silindi.");
         }
-
+        
         public IDataResult<MessageViewModel> GetById(int id)
         {
-            var result = _mapper.Map<MessageViewModel>(_repository.Get(x => x.Id == id).Include(x => x.Sender).FirstOrDefault());
-            return new SuccessDataResult<MessageViewModel>(result,"Mesaj Listelendi");
+            var message = _repository.Get(x => x.Id == id).Include(x => x.Sender).FirstOrDefault();
+            UpdateMessagesReadProperty(message);
+            return new SuccessDataResult<MessageViewModel>(_mapper.Map<MessageViewModel>(message), "Mesaj Listelendi");
         }
 
         public IDataResult<List<MessageViewModel>> GetAll()
@@ -67,6 +69,24 @@ namespace SiteExpensesManagement.App.Business.Concretes
             _repository.Update(result);
             _unitOfWork.Commit();
             return new SuccessResult("Mesaj güncellendi");
+        }
+        public void UpdateMessagesReadProperty(Message message)
+        {
+            message.HasRead = true;
+            _repository.Update(message);
+            _unitOfWork.Commit();
+        }
+
+        public IDataResult<List<MessageViewModel>> GetUsersMessage(string id)
+        {
+            var messages = _repository.Get(x => x.SenderId == id).ToList();
+            return new SuccessDataResult<List<MessageViewModel>>(_mapper.Map<List<MessageViewModel>>(messages));
+        }
+
+        public IDataResult<MessageViewModel> GetByIdForSender(int id)
+        {
+            var message = _repository.Get(x => x.Id == id).Include(x => x.Sender).FirstOrDefault();
+            return new SuccessDataResult<MessageViewModel>(_mapper.Map<MessageViewModel>(message), "Mesaj Listelendi");
         }
     }
 }

@@ -46,6 +46,8 @@ namespace SiteExpensesManagement.App.Business.Concretes
             {
                 return new ErrorResult("Apartman bulunamadı!");
             }
+            _repository.Delete(apartmentToDelete);
+            _unitOfWork.Commit();
             return new SuccessResult("Silindi");
         }
 

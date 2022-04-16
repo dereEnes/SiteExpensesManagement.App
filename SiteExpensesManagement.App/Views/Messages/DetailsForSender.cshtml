@@ -1,0 +1,43 @@
+﻿@using SiteExpensesManagement.App.Contracts.ViewModels.Message
+@model MessageViewModel
+
+<h1>Mesaj Detayları</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.Label("Göndere Ad")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SenderFirstName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.Label("Göndere Soyad")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SenderLastName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.Label("Göndere Telefon Numarası")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SenderPhoneNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.Label("Göndere Mesaj Başlığı")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Header)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.Label("Göndere Mesaj İçeriği")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+        
+    </dl>
+    
+    <a asp-action="ForwardedMessages" class="btn btn-primary">Mesajlara Geri dön</a>
+</div>

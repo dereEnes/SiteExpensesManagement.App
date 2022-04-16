@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation.Results;
+using Microsoft.AspNetCore.Mvc;
 using SiteExpensesManagement.App.Business.Abstracts;
+using SiteExpensesManagement.App.Business.Validations.FluentValidation.RoomTypeValidations;
+using SiteExpensesManagement.App.Contracts.Dtos;
 
 namespace SiteExpensesManagement.App.Controllers
 {
@@ -15,6 +18,31 @@ namespace SiteExpensesManagement.App.Controllers
         public IActionResult Index()
         {
             return View(_roomTypeService.GetAll().Data);
+        }
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(RoomTypeForAddDto roomTypeForAddDto)
+        {
+            RoomTypeForAddDtoValidator roomTypeValidator = new RoomTypeForAddDtoValidator();
+            ValidationResult validationResult = roomTypeValidator.Validate(roomTypeForAddDto);
+            if (!validationResult.IsValid)
+            {
+                foreach (var item in validationResult.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+
+            var result = _roomTypeService.Add(roomTypeForAddDto);
+            if (result.Success)
+            {
+                return RedirectToAction("Index");
+            }
+            ModelState.AddModelError("CountOfRooms",result.Message);
+            return View();
         }
         [HttpGet]
         public IActionResult Delete(int? id)

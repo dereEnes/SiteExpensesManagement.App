@@ -39,15 +39,14 @@ namespace SiteExpensesManagement.App.Controllers
         [HttpPost]
         public ActionResult Create(CarForAddDto carForAddDto)
         {
-            CarForAddDtoValidator categoryValidator = new CarForAddDtoValidator();
-            ValidationResult validationResult = categoryValidator.Validate(carForAddDto);
+            CarForAddDtoValidator carValidator = new CarForAddDtoValidator();
+            ValidationResult validationResult = carValidator.Validate(carForAddDto);
             if (!validationResult.IsValid)
             {
                 foreach (var item in validationResult.Errors)
                 {
                     ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
                 }
-
             }
             else
             {
@@ -88,7 +87,7 @@ namespace SiteExpensesManagement.App.Controllers
         // POST: CarsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, CarForUpdateDto carForUpdateDto)
+        public ActionResult Edit(CarForUpdateDto carForUpdateDto)
         {
             CarForUpdateDtoValidator categoryValidator = new CarForUpdateDtoValidator();
             ValidationResult validationResult = categoryValidator.Validate(carForUpdateDto);

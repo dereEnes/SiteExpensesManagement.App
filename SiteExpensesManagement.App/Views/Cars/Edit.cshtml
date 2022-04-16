@@ -16,20 +16,21 @@
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="UserId" class="form-control"/>
+            <div class="form-group">
+            </div>
             <div class="form-group">
                 <label asp-for="LicencePlate"></label>
                 <input asp-for="LicencePlate" class="form-control"/>
                 <span asp-validation-for="LicencePlate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="User.FirstName"></label>
-                <input accept="number" asp-for="User.FirstName" class="form-control"/>
-                <span asp-validation-for="User.FirstName" class="text-danger"></span>
+                <label asp-for="User.FirstName">Araç Sahibi İsmi : </label>
+                @Html.DisplayFor(x => x.User.LastName)
             </div>
             <div class="form-group">
-                <label asp-for="User.LastName"></label>
-                <input accept="number" asp-for="User.LastName" class="form-control"/>
-                <span asp-validation-for="User.LastName" class="text-danger"></span>
+                <label asp-for="User.LastName">Araç Sahibi Soyismi : </label>
+                @Html.DisplayFor(x => x.User.LastName)
             </div>
             
             <button type="submit" class="btn btn-primary">Güncelle</button>

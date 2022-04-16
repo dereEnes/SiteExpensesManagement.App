@@ -10,6 +10,7 @@ using SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.Abstracts
 using SiteExpensesManagement.App.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
@@ -43,20 +44,21 @@ namespace SiteExpensesManagement.App.Business.Concretes
             {
                 return new ErrorResult("Araç bulunamadı!");
             }
+            _repository.Delete(result);
             _unitOfWork.Commit();
             return new SuccessResult("Silindi.");
         }
 
         public IDataResult<CarViewModel> GetById(int id)
         {
-            var result = _mapper.Map<CarViewModel>(_repository.Get(x => x.Id == id).Include(x => x.User));
+            var result = _mapper.Map<CarViewModel>(_repository.Get(x => x.Id == id).Include(x => x.User).FirstOrDefault());
             return new SuccessDataResult<CarViewModel>(result);
         }
 
         public IDataResult<List<CarViewModel>> GetAll()
         {
-            var result = _mapper.Map<List<CarViewModel>>(_repository.GetAll().Include(x => x.User));
-            return new SuccessDataResult<List<CarViewModel>>(result);
+            var result = _repository.GetAll().Include(x => x.User);
+            return new SuccessDataResult<List<CarViewModel>>(_mapper.Map<List<CarViewModel>>(result));
         }
 
         public IResult Update(CarForUpdateDto carForUpdateDto)

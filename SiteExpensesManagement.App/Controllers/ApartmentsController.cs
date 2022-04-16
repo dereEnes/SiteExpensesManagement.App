@@ -110,11 +110,14 @@ namespace SiteExpensesManagement.App.Controllers
         public ActionResult Delete(int id)
         {
             var result = _apartmentService.GetById(id);
-            return View(result.Data);
+            if (result.Success)
+            {
+                return View(result.Data);
+            }
+            return NotFound();
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             _apartmentService.Delete(id);

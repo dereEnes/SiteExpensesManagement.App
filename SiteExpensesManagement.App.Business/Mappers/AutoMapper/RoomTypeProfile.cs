@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SiteExpensesManagement.App.Contracts.Dtos;
 using SiteExpensesManagement.App.Contracts.ViewModels;
 using SiteExpensesManagement.App.Domain.Entities;
 using System;
@@ -12,6 +13,7 @@ namespace SiteExpensesManagement.App.Business.Mappers.AutoMapper
         public RoomTypeProfile()
         {
             CreateMap<RoomType,RoomTypeViewModel>();
+            CreateMap<RoomTypeForAddDto, RoomType>();
         }
     }
 }

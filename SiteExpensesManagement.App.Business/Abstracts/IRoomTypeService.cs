@@ -1,4 +1,5 @@
-﻿using SiteExpensesManagement.App.Contracts.Dtos.Result;
+﻿using SiteExpensesManagement.App.Contracts.Dtos;
+using SiteExpensesManagement.App.Contracts.Dtos.Result;
 using SiteExpensesManagement.App.Contracts.ViewModels;
 using SiteExpensesManagement.App.Domain.Entities;
 using System;
@@ -10,7 +11,10 @@ namespace SiteExpensesManagement.App.Business.Abstracts
     public interface IRoomTypeService
     {
         IDataResult<List<RoomTypeViewModel>> GetAll();
-        IResult Delete(int id);
         IDataResult<RoomTypeViewModel> GetById(int id);
+        IResult Delete(int id);
+        IResult Add(RoomTypeForAddDto roomTypeForAddDto);
+        IResult Update(RoomTypeForUpdateDto roomTypeForUpdateDto);
+        
     }
 }

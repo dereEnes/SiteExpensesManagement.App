@@ -14,6 +14,8 @@ namespace SiteExpensesManagement.App.Business.Abstracts
         IResult Update(MessageForUpdateDto apartmentForCreateDto);
         IResult Delete(int id);
         IDataResult<MessageViewModel> GetById(int id);
+        IDataResult<MessageViewModel> GetByIdForSender(int id);
         IDataResult<List<MessageViewModel>> GetAll();
+        IDataResult<List<MessageViewModel>> GetUsersMessage(string id);
     }
 }

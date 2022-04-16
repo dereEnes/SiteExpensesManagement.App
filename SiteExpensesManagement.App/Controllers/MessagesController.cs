@@ -23,13 +23,27 @@ namespace SiteExpensesManagement.App.Controllers
        // [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            return View();
+            return View(_messageService.GetAll().Data);
+        }
+
+        // Get : MessagesController/ForwardedMessages -> returns User' Messages
+        // [Authorize(Roles = "Basic")]
+        public ActionResult ForwardedMessages()
+        {
+            var result = _messageService.GetUsersMessage(UserManager.GetUserId(User));
+            return View(result.Data);
         }
 
         // GET: MessagesController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var result = _messageService.GetById(id);
+            return View(result.Data);
+        }
+        public ActionResult DetailsForSender(int id)
+        {
+            var result = _messageService.GetByIdForSender(id);
+            return View(result.Data);
         }
 
        // [Authorize(Roles = "Basic")]
@@ -53,49 +67,28 @@ namespace SiteExpensesManagement.App.Controllers
                 return View();
             }
              _messageService.Add(messageForAddDto);
-            return View();
-        }
-
-        // GET: MessagesController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: MessagesController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("ForwardedMessages");
         }
 
         // GET: MessagesController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            _messageService.Delete(id);
+            return RedirectToAction("Index");
         }
 
         // POST: MessagesController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //[HttpPost]
+        //public ActionResult Delete(int id, IFormCollection collection)
+        //{
+        //    try
+        //    {
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
     }
 }

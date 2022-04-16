@@ -1,0 +1,23 @@
+﻿@using SiteExpensesManagement.App.Contracts.Dtos
+@model RoomTypeForAddDto
+
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <form asp-action="Create" asp-controller="RoomTypes" method="post">
+            <h4>Oda Çeşidi Oluştur.</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="CountOfRooms">Oda Sayısı</label>
+                <input asp-for="CountOfRooms" class="form-control"/>
+                <span asp-validation-for="CountOfRooms" class="text-danger"></span>
+            </div>
+            
+            <button type="submit" class="btn btn-success">Oluştur</button>
+        </form>
+    </div>
+</div>
+<br />
+<div>
+    <a class="btn btn-outline-info" asp-action="Index">Listeye Geri Dön</a>
+</div>

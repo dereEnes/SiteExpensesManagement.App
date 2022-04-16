@@ -17,7 +17,7 @@
          <tr>
             <td>@room.Id</td>
             <td>@room.CountOfRooms</td>
-            <td>@room.CreatedAt</td>
+            <td>@room.CreatedAt.ToString("dd:MMMM:yyyy")</td>
             <td><a asp-action="Edit" asp-route-id="@room.Id" class="btn btn-warning">Güncelle</a></td>
             <td><a asp-action="Delete" asp-route-id="@room.Id" class="btn btn-danger">Sil</a></td>
         </tr>   

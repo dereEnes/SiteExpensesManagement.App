@@ -34,7 +34,7 @@
                 }
                 @message.CreatedAt.ToString("dd:MM:yyyy")
                 </td>
-            <td><a asp-action="Details" asp-route-id="@message.Id" class="btn btn-warning">Detay</a></td>
+            <td><a asp-action="DetailsForSender" asp-route-id="@message.Id" class="btn btn-warning">Detay</a></td>
             <td><a asp-action="Delete" asp-route-id="@message.Id" class="btn btn-danger">Sil</a></td>
         </tr>   
         }

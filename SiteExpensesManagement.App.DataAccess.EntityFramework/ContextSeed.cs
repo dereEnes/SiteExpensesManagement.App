@@ -19,8 +19,8 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework
             {
                 UserName = "admin",
                 Email = "admin@gmail.com",
-                FirstName = "enes",
-                LastName = "dere",
+                FirstName = "Enes",
+                LastName = "Dere",
                 IdentityNumber = "12312312312",
                 PhoneNumber = "12312312312",
                 EmailConfirmed = true,
