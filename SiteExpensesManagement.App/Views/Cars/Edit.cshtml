@@ -4,15 +4,19 @@
 @{
     ViewData["Title"] = "Edit";
 }
+<style>
+.names{
+    font-size:larger;
+    color:darkblue;
+    font-style:oblique;
+}
+</style>
 
-<h1>Site expenses Management</h1>
 
-<h4>Update</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit" asp-controller="Cars" method="post">
-            <h4>Araba güncelle</h4>
+            <h1>Arabayı güncelle</h1>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
@@ -20,24 +24,28 @@
             <div class="form-group">
             </div>
             <div class="form-group">
-                <label asp-for="LicencePlate"></label>
+                <label asp-for="LicencePlate">Araç Plakası</label>
                 <input asp-for="LicencePlate" class="form-control"/>
                 <span asp-validation-for="LicencePlate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="User.FirstName">Araç Sahibi İsmi : </label>
-                @Html.DisplayFor(x => x.User.LastName)
+                <span class="names">
+                    @Html.DisplayFor(x => x.User.FirstName)
+                </span>
             </div>
             <div class="form-group">
                 <label asp-for="User.LastName">Araç Sahibi Soyismi : </label>
-                @Html.DisplayFor(x => x.User.LastName)
+                <span class="names">
+                    @Html.DisplayFor(x => x.User.LastName)
+                </span>
             </div>
             
-            <button type="submit" class="btn btn-primary">Güncelle</button>
+            <button type="submit" class="btn btn-warning">Güncelle</button>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-primary mt-1">Geri Dön</a>
 </div>

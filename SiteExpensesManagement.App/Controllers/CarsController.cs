@@ -48,12 +48,14 @@ namespace SiteExpensesManagement.App.Controllers
                     ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
                 }
             }
-            else
+
+            var result = _carService.Add(carForAddDto);
+            if (result.Success)
             {
-                var result = _carService.Add(carForAddDto);
                 return RedirectToAction("Index");
             }
 
+            ModelState.AddModelError("",result.Message);
             ViewBag.Users = GetUsers();
             return View();
         }

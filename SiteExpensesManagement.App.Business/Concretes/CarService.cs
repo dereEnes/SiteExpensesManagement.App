@@ -31,6 +31,10 @@ namespace SiteExpensesManagement.App.Business.Concretes
 
         public IResult Add(CarForAddDto carForAddDto)
         {
+            if (IsCarAlreadyExist(carForAddDto.LicencePlate))
+            {
+                return new ErrorResult("Araç zaten eklenmiş");
+            }
             var carToAdd = _mapper.Map<Car>(carForAddDto);
             _repository.Add(carToAdd);
             _unitOfWork.Commit();
@@ -67,6 +71,12 @@ namespace SiteExpensesManagement.App.Business.Concretes
             _repository.Update(result);
             _unitOfWork.Commit();
             return new SuccessResult("Araç güncellendi");
+        }
+        private bool IsCarAlreadyExist(string licancePlate)
+        {
+            var result = _repository.Get(x => x.LicencePlate.Trim() == licancePlate.Trim()).FirstOrDefault();
+            if (result is null) return false;
+            return true;
         }
     }
 }
