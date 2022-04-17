@@ -4,10 +4,11 @@ using System.Text;
 
 namespace SiteExpensesManagement.App.Domain.Enums
 {
-    public enum BillType:byte
+    public enum BillTypes:byte
     {
-        Electric,
-        Gas,
-        Water
+        Elektrik,
+        Doğalgaz,
+        Su,
+        İnternet
     }
 }

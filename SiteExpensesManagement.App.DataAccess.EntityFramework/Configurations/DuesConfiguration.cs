@@ -17,7 +17,7 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations
                 .HasForeignKey(b => b.ApartmentId);
 
             builder.Property(d => d.IsPayed).HasDefaultValue(false);
-            builder.Property(d => d.Amount).HasColumnType("decimal(18,2)");
+            builder.Property(d => d.Price).HasColumnType("decimal(18,2)");
         }
     }
 }
