@@ -12,12 +12,12 @@ namespace SiteExpensesManagement.App.Controllers
     public class MessagesController : Controller
     {
         private readonly IMessageService _messageService;
-        private readonly UserManager<ApplicationUser> UserManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public MessagesController(IMessageService messageService, UserManager<ApplicationUser> userManager)
         {
             _messageService = messageService;
-            UserManager = userManager;
+            _userManager = userManager;
         }
 
        // [Authorize(Roles = "Admin")]
@@ -30,7 +30,7 @@ namespace SiteExpensesManagement.App.Controllers
         // [Authorize(Roles = "Basic")]
         public ActionResult ForwardedMessages()
         {
-            var result = _messageService.GetUsersMessage(UserManager.GetUserId(User));
+            var result = _messageService.GetUsersMessage(_userManager.GetUserId(User));
             return View(result.Data);
         }
 
@@ -55,7 +55,7 @@ namespace SiteExpensesManagement.App.Controllers
         [HttpPost]
         public ActionResult Create(MessageForAddDto messageForAddDto)
         {
-            messageForAddDto.SenderId = UserManager.GetUserId(User);
+            messageForAddDto.SenderId = _userManager.GetUserId(User);
             MessageForAddDtoValidator validator = new MessageForAddDtoValidator();
             var validationResult = validator.Validate(messageForAddDto);
             if (!validationResult.IsValid)

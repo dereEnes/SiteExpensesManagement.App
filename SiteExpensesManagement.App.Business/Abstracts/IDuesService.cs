@@ -12,6 +12,6 @@ namespace SiteExpensesManagement.App.Business.Abstracts
         IResult Update(DuesForUpdateDto duesForUpdateDto);
         IDataResult<DuesViewModel> GetById(int id);
         IDataResult<List<DuesViewModel>> GetAll();
-        List<DuesViewModel> GetUsersDues(string id);
+        //List<DuesViewModel> GetUsersDues(string id);
     }
 }

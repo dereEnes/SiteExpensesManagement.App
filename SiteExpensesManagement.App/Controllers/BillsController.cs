@@ -1,19 +1,25 @@
 ﻿using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SiteExpensesManagement.App.Business.Abstracts;
 using SiteExpensesManagement.App.Business.Validations.FluentValidation.BillValidations;
 using SiteExpensesManagement.App.Contracts.Dtos.Bills;
+using SiteExpensesManagement.App.Domain.Entities;
 
 namespace SiteExpensesManagement.App.Controllers
 {
     public class BillsController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IBillService _billService;
+        private readonly IApartmentService _apartmentService;
 
-        public BillsController(IBillService billService)
+        public BillsController(IBillService billService, UserManager<ApplicationUser> userManager, IApartmentService apartmentService)
         {
             _billService = billService;
+            _userManager = userManager;
+            _apartmentService = apartmentService;
         }
 
         public ActionResult Index()
@@ -21,10 +27,11 @@ namespace SiteExpensesManagement.App.Controllers
             return View(_billService.GetAll());
         }
 
-        // GET: BillsController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult ApartmentBills()
         {
-            return View();
+            string userId = _userManager.GetUserId(User);
+            var apartment = _apartmentService.GetBillsByUserId(userId);
+            return View(apartment);
         }
 
         // GET: BillsController/Create

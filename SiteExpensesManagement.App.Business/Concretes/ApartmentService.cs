@@ -122,5 +122,16 @@ namespace SiteExpensesManagement.App.Business.Concretes
             }
             return list;
         }
+
+        public ApartmentBillsDto GetBillsByUserId(string id)
+        {
+            var result = _repository.Get(x => x.UserId == id).Include(x => x.Bills).Include(x => x.User).FirstOrDefault();
+            return _mapper.Map<ApartmentBillsDto>(result);
+        }
+        public ApartmentDuesDto GetDuesByUserId(string id)
+        {
+            var result = _repository.Get(x => x.UserId == id).Include(x => x.Bills).Include(x => x.User).FirstOrDefault();
+            return _mapper.Map<ApartmentDuesDto>(result);
+        }
     }
 }

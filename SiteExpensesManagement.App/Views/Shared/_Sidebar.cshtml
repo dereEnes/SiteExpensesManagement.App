@@ -1,0 +1,102 @@
+﻿<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="~/css/menu.css">
+
+
+       
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3 class="mt-5 mb-2">Patika Evleri</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <p>Kategoriler</p>
+                <li class="active">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Kişiler</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a asp-area="Identity" asp-page="/Account/Register">Ekle</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        
+                    </ul>
+                </li>
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle btn-dark">Daireler</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a asp-action="Index" asp-controller="Apartments">Listele</a>
+                        </li>
+                        <li>
+                            <a asp-action="Create" asp-controller="Apartments">Ekle</a>
+                        </li>
+                        
+                    </ul>
+                </li>
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Arabalar</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a asp-action="Index" asp-controller="Cars">Listele</a>
+                        </li>
+                        <li>
+                            <a asp-action="Create" asp-controller="Cars">Ekle</a>
+                        </li>
+                        
+                    </ul>
+                </li>
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle btn-dark">Oda Tipleri</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a asp-action="Index" asp-controller="RoomTypes">Listele</a>
+                        </li>
+                        <li>
+                            <a asp-action="Create" asp-controller="RoomTypes">Ekle</a>
+                        </li>
+                        
+                    </ul>
+                </li>
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Faturalar</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a asp-action="Index" asp-controller="Bills">Listele</a>
+                        </li>
+                        <li>
+                            <a asp-action="Create" asp-controller="Bills">Ekle</a>
+                        </li>
+                        <li>
+                            <a asp-action="ApartmentBills" asp-controller="Bills">Faturalarım</a>
+                        </li>
+                        
+                    </ul>
+                </li>
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle btn-dark">Aidatlar</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a asp-action="Index" asp-controller="Dues" >Listele</a>
+                        </li>
+                        <li>
+                            <a asp-action="Create" asp-controller="Dues">Ekle</a>
+                        </li>
+                        <li>
+                            <a asp-action="ApartmentDues" asp-controller="Dues">Aidatlarım</a>
+                        </li>
+                        
+                    </ul>
+                </li>
+               
+            </ul>
+
+            <ul class="list-unstyled CTAs">
+                <li>
+                    <a asp-action="Create" class="download">Mesaj Gönder</a>
+                </li>
+            </ul>
+        </nav>
+
+        
+

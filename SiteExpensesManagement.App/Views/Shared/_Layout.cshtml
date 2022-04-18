@@ -33,11 +33,26 @@
             </div>
         </nav>
     </header>
+    @*<span>@await Html.PartialAsync("_Sidebar")</span>
+    
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-    </div>
+    </div>*@
+
+    
+    <div class="container-fluid">
+  <div class="row">
+    <span class="col-xl-2 col-lg-4 col-md-4 mb-6">
+      @await Html.PartialAsync("_Sidebar")
+    </span>
+    <span class=".col-xl-9 col-lg-8 col-md-8 mb-6">
+      @RenderBody()
+    </span>
+  </div>
+</div>
+
 
     <footer class="border-top footer text-muted">
         <div class="container">

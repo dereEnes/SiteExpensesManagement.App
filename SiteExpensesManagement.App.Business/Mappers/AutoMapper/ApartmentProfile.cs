@@ -13,6 +13,11 @@ namespace SiteExpensesManagement.App.Business.Mappers.AutoMapper
 
             CreateMap<Apartment, ApartmentViewModel>()
                 .ForMember(dest => dest.Block, opt => opt.MapFrom(src => src.Block.ToString()));
+
+            CreateMap<Apartment, ApartmentBillsDto>()
+                .ForMember(dest => dest.Bills, opt => opt.MapFrom(src => src.Bills))
+                .ForMember(dest => dest.User, opt => opt.MapFrom(src => src.User))
+                .ForMember(dest => dest.Block, opt => opt.MapFrom(src => src.Block.ToString()));
         }
     }
 }
