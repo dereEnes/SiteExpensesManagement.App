@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation.Results;
+using Microsoft.EntityFrameworkCore;
 using SiteExpensesManagement.App.Business.Abstracts;
 using SiteExpensesManagement.App.Business.Validations.FluentValidation.BillValidations;
 using SiteExpensesManagement.App.Contracts.Dtos.Bills;
@@ -35,8 +36,10 @@ namespace SiteExpensesManagement.App.Business.Concretes
             billForAddDto.Year = (short)DateTime.Now.Year;
             if (CheckForAlreadyExist(billForAddDto))
             {
-                return new ErrorResult("Zaten Eklenmiş");
+                return new ErrorResult("Fatura Zaten Eklenmiş");
             }
+
+
             var billToAdd = _mapper.Map<Bill>(billForAddDto);
             billToAdd.CreatedAt = DateTime.Now;
 
@@ -78,11 +81,19 @@ namespace SiteExpensesManagement.App.Business.Concretes
             var apartmentsIdList = _apartmentService.GetAllApartmentsId();
             foreach (int id in apartmentsIdList)
             {
-                bill.ApartmentId = id;
-                _repository.Add(bill);
-                _unitOfWork.Commit();
+                _repository.Add(new Bill
+                {
+                    ExpiryDate = bill.ExpiryDate,
+                    ApartmentId = id,
+                    Category = bill.Category,
+                    CreatedAt = bill.CreatedAt,
+                    Month = bill.Month,
+                    Price = bill.Price,
+                    Year = bill.Year
+                });
             }
-            
+            _unitOfWork.Commit();
+
         }
         public IResult Delete(int id)
         {
@@ -98,7 +109,7 @@ namespace SiteExpensesManagement.App.Business.Concretes
 
         public List<BillViewModel> GetAll()
         {
-            var result = _repository.GetAll();
+            var result = _repository.GetAll().Include(x => x.Apartment).ToList();
             return _mapper.Map<List<BillViewModel>>(result);
         }
 

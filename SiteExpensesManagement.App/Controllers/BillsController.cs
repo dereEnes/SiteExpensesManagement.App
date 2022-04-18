@@ -18,7 +18,7 @@ namespace SiteExpensesManagement.App.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return View(_billService.GetAll());
         }
 
         // GET: BillsController/Details/5

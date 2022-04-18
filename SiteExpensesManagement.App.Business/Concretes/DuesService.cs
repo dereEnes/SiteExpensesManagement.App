@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation.Results;
+using Microsoft.EntityFrameworkCore;
 using SiteExpensesManagement.App.Business.Abstracts;
 using SiteExpensesManagement.App.Business.Validations.FluentValidation.DuesValidations;
 using SiteExpensesManagement.App.Contracts.Dtos.Dues;
@@ -7,6 +8,7 @@ using SiteExpensesManagement.App.Contracts.Dtos.Result;
 using SiteExpensesManagement.App.Contracts.ViewModels.Dues;
 using SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.Abstracts;
 using SiteExpensesManagement.App.Domain.Entities;
+using SiteExpensesManagement.App.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,30 +21,78 @@ namespace SiteExpensesManagement.App.Business.Concretes
         private readonly IRepository<Dues> _repository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IApartmentService _apartmentService;
 
-        public DuesService(IRepository<Dues> repository, IUnitOfWork unitOfWork, IMapper mapper)
+        public DuesService(IRepository<Dues> repository, IUnitOfWork unitOfWork, IMapper mapper, IApartmentService apartmentService)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _apartmentService = apartmentService;
         }
 
         public IResult Add(DuesForAddDto duesForAddDto)
         {
-            DuesForAddDtoValidator validator = new DuesForAddDtoValidator();
-            ValidationResult result = validator.Validate(duesForAddDto);
-
-            if (!result.IsValid || !CheckForAlreadyExist(duesForAddDto))
+            duesForAddDto.Year = (short)DateTime.Now.Year;
+            if (CheckForAlreadyExist(duesForAddDto))
             {
-                return new ErrorResult("Geçersiz Aidat");
+                return new ErrorResult("Fatura Zaten Eklenmiş");
             }
 
-            var duesToAdd = _mapper.Map<Dues>(duesForAddDto);
-            _repository.Add(duesToAdd);
-            _unitOfWork.Commit();
-            return new SuccessResult("Aidat Eklendi");
-        }
+            var billToAdd = _mapper.Map<Dues>(duesForAddDto);
+            billToAdd.CreatedAt = DateTime.Now;
 
+            if (duesForAddDto.Target == Targets.Daire)
+            {
+                AddDuesToApartment(billToAdd, duesForAddDto.ApartmentNo);
+
+            }
+            else if (duesForAddDto.Target == Targets.Blok)
+            {
+                AddDuesToAllBloks(billToAdd, duesForAddDto.Block);
+            }
+            else if (duesForAddDto.Target == Targets.Hepsi)
+            {
+                AddDuesToAllApartments(billToAdd);
+            }
+            else
+            {
+                return new ErrorResult("Hatalı Deneme");
+            }
+            _unitOfWork.Commit();
+            return new SuccessResult("Fatura Eklendi");
+        }
+        private void AddDuesToApartment(Dues dues, int apartmentNo)
+        {
+            dues.ApartmentId = _apartmentService.GetApartmentIdByNo(apartmentNo);
+            _repository.Add(dues);
+        }
+        private void AddDuesToAllBloks(Dues dues, Blocks block)
+        {
+            var apartmentsIdList = _apartmentService.GetApartmentsIdByBlock(block);
+            foreach (int id in apartmentsIdList)
+            {
+                dues.ApartmentId = id;
+                _repository.Add(dues);
+            }
+        }
+        private void AddDuesToAllApartments(Dues dues)
+        {
+            var apartmentsIdList = _apartmentService.GetAllApartmentsId();
+            foreach (int id in apartmentsIdList)
+            {
+                _repository.Add(new Dues
+                {
+                    ApartmentId = id,
+                    CreatedAt = dues.CreatedAt,
+                    Month = dues.Month,
+                    Price = dues.Price,
+                    Year = dues.Year,
+                });
+            }
+            _unitOfWork.Commit();
+
+        }
         public IResult Delete(int id)
         {
             var result = _repository.GetById(id);
@@ -57,7 +107,7 @@ namespace SiteExpensesManagement.App.Business.Concretes
 
         public IDataResult<List<DuesViewModel>> GetAll()
         {
-            var result = _repository.GetAll();
+            var result = _repository.GetAll().Include(x => x.Apartment).ToList();
             return new SuccessDataResult<List<DuesViewModel>>(_mapper.Map<List<DuesViewModel>>(result));
         }
 
@@ -83,7 +133,12 @@ namespace SiteExpensesManagement.App.Business.Concretes
         }
         private bool CheckForAlreadyExist(DuesForAddDto duesForAddDto)
         {
-            var result = _repository.Get(x => x.Month == duesForAddDto.Month && x.Year == duesForAddDto.Year).FirstOrDefault();
+            var result = _repository.Get(
+                x => x.Month == duesForAddDto.Month && 
+                x.Year == duesForAddDto.Year && 
+                x.ApartmentId == duesForAddDto.ApartmentNo)
+                .FirstOrDefault();
+
             if (result is null)
             {
                 return false;

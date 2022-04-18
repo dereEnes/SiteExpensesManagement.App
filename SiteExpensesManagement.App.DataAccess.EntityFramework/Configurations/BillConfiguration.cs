@@ -11,6 +11,7 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations
         {
             builder.ToTable("Bills", "dbo");
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
+            
             builder.HasKey(x => x.Id);
 
             builder.HasOne<Apartment>(b => b.Apartment)
