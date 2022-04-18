@@ -1,10 +1,9 @@
 ﻿using FluentValidation.Results;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SiteExpensesManagement.App.Business.Abstracts;
 using SiteExpensesManagement.App.Business.Validations.FluentValidation;
-using SiteExpensesManagement.App.Contracts.Dtos.Apartment;
+using SiteExpensesManagement.App.Contracts.Dtos.Apartments;
 using SiteExpensesManagement.App.Contracts.Dtos;
 using SiteExpensesManagement.App.Contracts.Dtos.User;
 using SiteExpensesManagement.App.Domain.Entities;
@@ -28,7 +27,6 @@ namespace SiteExpensesManagement.App.Controllers
 
         public ActionResult Index()
         {
-
             return View(_apartmentService.GetAll().Data);
         }
 

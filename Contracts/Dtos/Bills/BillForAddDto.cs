@@ -3,17 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SiteExpensesManagement.App.Domain.Entities
+namespace SiteExpensesManagement.App.Contracts.Dtos.Bills
 {
-    public class Bill:BaseEntity
+    public class BillForAddDto
     {
-        public int ApartmentId { get; set; }
-        public Apartment Apartment { get; set; }
+        public Targets Target { get; set; }
+        public int ApartmentNo { get; set; }
         public BillTypes Category { get; set; }
+        public Blocks Block { get; set; }
         public decimal Price { get; set; }
         public Months Month { get; set; }
-        public DateTime ExpiryDate { get; set; }
         public short Year { get; set; }
-        public bool IsPayed { get; set; }
+        public DateTime ExpiryDate { get; set; }
     }
 }

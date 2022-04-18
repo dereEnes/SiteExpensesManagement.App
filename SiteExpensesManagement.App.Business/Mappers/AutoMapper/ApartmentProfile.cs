@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using SiteExpensesManagement.App.Contracts.Dtos.Apartment;
-using SiteExpensesManagement.App.Contracts.ViewModels.Apartment;
+using SiteExpensesManagement.App.Contracts.Dtos.Apartments;
+using SiteExpensesManagement.App.Contracts.ViewModels.Apartments;
 using SiteExpensesManagement.App.Domain.Entities;
 
 namespace SiteExpensesManagement.App.Business.Mappers.AutoMapper

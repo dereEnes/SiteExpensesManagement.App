@@ -47,7 +47,8 @@ namespace SiteExpensesManagement.App
             services.AddTransient<IRoomTypeService, RoomTypeService>();
             services.AddTransient<ICarService, CarService>();
             services.AddTransient<IMessageService, MessageService>();
-
+            services.AddTransient<IBillService, BillService>();
+            services.AddTransient<IDuesService, DuesService>();
 
             services.AddCors(options =>
             {

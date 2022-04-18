@@ -3,11 +3,12 @@ using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using SiteExpensesManagement.App.Business.Abstracts;
 using SiteExpensesManagement.App.Business.Validations.FluentValidation;
-using SiteExpensesManagement.App.Contracts.Dtos.Apartment;
+using SiteExpensesManagement.App.Contracts.Dtos.Apartments;
 using SiteExpensesManagement.App.Contracts.Dtos.Result;
-using SiteExpensesManagement.App.Contracts.ViewModels.Apartment;
+using SiteExpensesManagement.App.Contracts.ViewModels.Apartments;
 using SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.Abstracts;
 using SiteExpensesManagement.App.Domain.Entities;
+using SiteExpensesManagement.App.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,9 +29,12 @@ namespace SiteExpensesManagement.App.Business.Concretes
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-
         public IResult Add(ApartmentForCreateDto apartmentForCreateDto)
         {
+            if (CheckApartmentNoAlreadyExist(apartmentForCreateDto.ApartmentNo))
+            {
+                return new ErrorResult("Apartman Numarası Kullanımda");
+            }
             var apartmentToAdd = _mapper.Map<Apartment>(apartmentForCreateDto);
             apartmentToAdd.CreatedAt = DateTime.Now;
             apartmentToAdd.IsEmpty = false;
@@ -78,6 +82,37 @@ namespace SiteExpensesManagement.App.Business.Concretes
             _repository.Update(result);
             _unitOfWork.Commit();
             return new SuccessResult("Apartman güncellendi");
+        }
+
+        public bool CheckApartmentNoAlreadyExist(int apartmentNo)
+        {
+            var result = _repository.Get(x => x.ApartmentNo == apartmentNo).FirstOrDefault();
+            if (result is null)
+            {
+                return false;
+            }
+            return true;
+        }
+        public int GetApartmentIdByNo(int apartmentNo)
+        {
+            var result = _repository.Get(x => x.ApartmentNo == apartmentNo).FirstOrDefault();
+            if (result is null)
+            {
+                return 0;
+            }
+            return result.Id;
+        }
+        public List<int> GetApartmentsIdByBlock(Blocks block)
+        {
+            var list = new List<int>();
+            var result = _repository.Get(x => x.Block == block).ForEachAsync(x => list.Add(x.Id));
+            return list;
+        }
+        public async Task<List<int>> GetAllApartmentsId()
+        {
+            var list = new List<int>();
+            await _repository.GetAll().ForEachAsync(x => list.Add(x.Id));
+            return list;
         }
     }
 }

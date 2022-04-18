@@ -1,7 +1,7 @@
 ﻿using SiteExpensesManagement.App.Domain.Entities;
 using System;
 
-namespace SiteExpensesManagement.App.Contracts.ViewModels.Apartment
+namespace SiteExpensesManagement.App.Contracts.ViewModels.Apartments
 {
     public class ApartmentViewModel
     {

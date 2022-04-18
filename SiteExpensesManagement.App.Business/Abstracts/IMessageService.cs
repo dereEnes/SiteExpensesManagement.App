@@ -1,7 +1,7 @@
-﻿using SiteExpensesManagement.App.Contracts.Dtos.Apartment;
+﻿using SiteExpensesManagement.App.Contracts.Dtos.Apartments;
 using SiteExpensesManagement.App.Contracts.Dtos.Message;
 using SiteExpensesManagement.App.Contracts.Dtos.Result;
-using SiteExpensesManagement.App.Contracts.ViewModels.Apartment;
+using SiteExpensesManagement.App.Contracts.ViewModels.Apartments;
 using SiteExpensesManagement.App.Contracts.ViewModels.Message;
 using System.Collections.Generic;
 

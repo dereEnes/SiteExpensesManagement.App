@@ -1,19 +1,18 @@
 ﻿using SiteExpensesManagement.App.Domain.Enums;
+using SiteExpensesManagement.App.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace SiteExpensesManagement.App.Domain.Entities
+namespace SiteExpensesManagement.App.Contracts.ViewModels.Bills
 {
-    public class Bill:BaseEntity
+    public class BillViewModel
     {
         public int ApartmentId { get; set; }
         public Apartment Apartment { get; set; }
-        public BillTypes Category { get; set; }
+        public string Category { get; set; }
         public decimal Price { get; set; }
-        public Months Month { get; set; }
-        public DateTime ExpiryDate { get; set; }
+        public string Month { get; set; }
         public short Year { get; set; }
+        public DateTime ExpiryDate { get; set; }
         public bool IsPayed { get; set; }
     }
 }

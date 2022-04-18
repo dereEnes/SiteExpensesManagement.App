@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using SiteExpensesManagement.App.Contracts.Dtos.Apartment;
+using SiteExpensesManagement.App.Contracts.Dtos.Apartments;
 using System;
 using System.Collections.Generic;
 using System.Text;
