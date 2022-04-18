@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SiteExpensesManagement.App.Business.Abstracts;
 using SiteExpensesManagement.App.Business.Validations.FluentValidation.DuesValidations;
-using SiteExpensesManagement.App.Contracts.Dtos.Dues;
+using SiteExpensesManagement.App.Contracts.Dtos.DuesDtos;
 using SiteExpensesManagement.App.Domain.Entities;
 
 namespace SiteExpensesManagement.App.Controllers
@@ -34,7 +34,7 @@ namespace SiteExpensesManagement.App.Controllers
         {
             var user = _userManager.GetUserId(User);
             var result = _apartmentService.GetDuesByUserId(user);
-            return View();
+            return View(result);
 
         }
         //[Authorize(Roles = "Admin")]

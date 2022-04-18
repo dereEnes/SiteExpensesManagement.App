@@ -57,7 +57,9 @@ namespace SiteExpensesManagement.App.Business.Concretes
 
         public IDataResult<List<ApartmentViewModel>> GetAll()
         {
-            var result = _mapper.Map<List<ApartmentViewModel>>(_repository.GetAll().Include(x => x.User).Include(x => x.RoomType));
+            var result = _mapper.Map<List<ApartmentViewModel>>(_repository.GetAll()
+                .Include(x => x.User)
+                .Include(x => x.RoomType));
             return new SuccessDataResult<List<ApartmentViewModel>>(result);
         }
 
@@ -66,7 +68,10 @@ namespace SiteExpensesManagement.App.Business.Concretes
             var result = new ApartmentViewModel();
             try
             {
-                 result = _mapper.Map<ApartmentViewModel>(_repository.Get(x => x.Id == id).Include(x => x.User).Include(x => x.RoomType).FirstOrDefault());
+                 result = _mapper.Map<ApartmentViewModel>(_repository.Get(x => x.Id == id)
+                     .Include(x => x.User)
+                     .Include(x => x.RoomType)
+                     .FirstOrDefault());
             }
             catch (Exception)
             {
@@ -86,7 +91,8 @@ namespace SiteExpensesManagement.App.Business.Concretes
 
         public bool CheckApartmentNoAlreadyExist(int apartmentNo)
         {
-            var result = _repository.Get(x => x.ApartmentNo == apartmentNo).FirstOrDefault();
+            var result = _repository.Get(x => x.ApartmentNo == apartmentNo)
+                .FirstOrDefault();
             if (result is null)
             {
                 return false;
@@ -95,7 +101,8 @@ namespace SiteExpensesManagement.App.Business.Concretes
         }
         public int GetApartmentIdByNo(int apartmentNo)
         {
-            var result = _repository.Get(x => x.ApartmentNo == apartmentNo).FirstOrDefault();
+            var result = _repository.Get(x => x.ApartmentNo == apartmentNo)
+                .FirstOrDefault();
             if (result is null)
             {
                 return 0;
@@ -104,33 +111,31 @@ namespace SiteExpensesManagement.App.Business.Concretes
         }
         public List<int> GetApartmentsIdByBlock(Blocks block)
         {
-            var list = new List<int>();
-            var result = _repository.Get(x => x.Block == block);
-            foreach (var item in result)
-            {
-                list.Add(item.Id);
-            }
-            return list;
+            return _repository.Get(x => x.Block == block)
+                .Select(x=> x.Id)
+                .ToList();
         }
         public List<int> GetAllApartmentsId()
         {
-            var list = new List<int>();
-            var result = _repository.GetAll();
-            foreach (var item in result)
-            {
-                list.Add(item.Id);
-            }
-            return list;
+            return  _repository.GetAll()
+                .Select(x=>x.Id)
+                .ToList();
         }
 
         public ApartmentBillsDto GetBillsByUserId(string id)
         {
-            var result = _repository.Get(x => x.UserId == id).Include(x => x.Bills).Include(x => x.User).FirstOrDefault();
+            var result = _repository.Get(x => x.UserId == id)
+                .Include(x => x.Bills)
+                .Include(x => x.User)
+                .FirstOrDefault();
             return _mapper.Map<ApartmentBillsDto>(result);
         }
         public ApartmentDuesDto GetDuesByUserId(string id)
         {
-            var result = _repository.Get(x => x.UserId == id).Include(x => x.Bills).Include(x => x.User).FirstOrDefault();
+            var result = _repository.Get(x => x.UserId == id)
+                .Include(x => x.Dues)
+                .Include(x => x.User)
+                .FirstOrDefault();
             return _mapper.Map<ApartmentDuesDto>(result);
         }
     }

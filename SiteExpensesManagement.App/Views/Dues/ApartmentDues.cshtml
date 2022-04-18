@@ -1,34 +1,23 @@
-﻿@*@using SiteExpensesManagement.App.Contracts.Dtos.Apartments
+﻿@using SiteExpensesManagement.App.Contracts.Dtos.Apartments
 @model ApartmentDuesDto
 
 <table class="table table-dark table-striped">
     <thead>
         <tr>
-            <th>Fatura Türü</th>
             <th>Ay</th>
             <th>Yıl</th>
             <th>Ücret</th>
-            <th>Son Ödeme Tarihi</th>
             <th>Durum</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var bill in Model.Bills)
+        @foreach (var dues in Model.Dues)
         {
             <tr>
-            <td>@bill.Category.ToString()</td>
-            <td>@bill.Month.ToString()</td>
-            <td>@bill.Year</td>
-            <td>@bill.Price <i class="fa-solid fa-turkish-lira-sign"></i></td>
-                @if (@bill.ExpiryDate > DateTime.Now)
-                {
-                    <td class ="text-danger">@bill.ExpiryDate.ToString("dd:MM:yyyy")</td>
-                }
-                else
-                {
-                    <td>@bill.ExpiryDate.ToString("dd:MM:yyyy")</td>
-                }
-                @if (@bill.IsPayed)
+            <td>@dues.Month.ToString()</td>
+            <td>@dues.Year</td>
+            <td>@dues.Price <i class="fa-solid fa-turkish-lira-sign"></i></td>
+                @if (@dues.IsPayed)
                {
                     <td class="text-success">ÖDENDİ</td>
                 }
@@ -39,4 +28,4 @@
             </tr>   
         }
     </tbody>
-</table>*@
+</table>

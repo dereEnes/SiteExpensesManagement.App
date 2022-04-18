@@ -1,4 +1,4 @@
-﻿using SiteExpensesManagement.App.Contracts.Dtos.Dues;
+﻿using SiteExpensesManagement.App.Contracts.Dtos.DuesDtos;
 using SiteExpensesManagement.App.Contracts.Dtos.Result;
 using SiteExpensesManagement.App.Contracts.ViewModels.Dues;
 using System.Collections.Generic;

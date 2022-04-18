@@ -35,13 +35,6 @@ namespace SiteExpensesManagement.App.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult Create()
-        {
-            ViewBag.Users = GetUsers();
-            ViewBag.RoomTypes = GetRoomTypes();
-            return View();
-        }
         [NonAction]
         public List<RoomTypeForSelectItem> GetRoomTypes()
         {
@@ -61,8 +54,16 @@ namespace SiteExpensesManagement.App.Controllers
                     Text = $"{u.FirstName} {u.LastName}"
                 }).ToList();
         }
-        
+
+        [HttpGet]
+        public ActionResult Create()
+        {
+            ViewBag.Users = GetUsers();
+            ViewBag.RoomTypes = GetRoomTypes();
+            return View();
+        }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(ApartmentForCreateDto apartmentForCreateDto)
         {
             ApartmentValidator categoryValidator = new ApartmentValidator();

@@ -3,7 +3,7 @@ using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using SiteExpensesManagement.App.Business.Abstracts;
 using SiteExpensesManagement.App.Business.Validations.FluentValidation.DuesValidations;
-using SiteExpensesManagement.App.Contracts.Dtos.Dues;
+using SiteExpensesManagement.App.Contracts.Dtos.DuesDtos;
 using SiteExpensesManagement.App.Contracts.Dtos.Result;
 using SiteExpensesManagement.App.Contracts.ViewModels.Dues;
 using SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.Abstracts;

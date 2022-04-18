@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using SiteExpensesManagement.App.Contracts.Dtos.Dues;
+using SiteExpensesManagement.App.Contracts.Dtos.DuesDtos;
 using System;
 using System.Collections.Generic;
 using System.Text;

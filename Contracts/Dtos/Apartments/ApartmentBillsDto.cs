@@ -12,7 +12,6 @@ namespace SiteExpensesManagement.App.Contracts.Dtos.Apartments
         public ApplicationUser User { get; set; }
         public Blocks Block { get; set; }
         public int ApartmentNo { get; set; }
-        public bool IsEmpty { get; set; }
         public List<Bill> Bills { get; set; } = new List<Bill>();
     }
 }

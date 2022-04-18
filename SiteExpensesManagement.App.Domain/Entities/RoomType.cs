@@ -6,7 +6,11 @@ namespace SiteExpensesManagement.App.Domain.Entities
 {
     public class RoomType:BaseEntity
     {
+        public RoomType()
+        {
+            Apartments = new List<Apartment>();
+        }
         public string CountOfRooms { get; set; }
-        public List<Apartment> Apartments { get; set; } = new List<Apartment>();
+        public List<Apartment> Apartments { get; set; }
     }
 }

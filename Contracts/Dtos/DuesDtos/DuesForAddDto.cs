@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SiteExpensesManagement.App.Contracts.Dtos.Dues
+namespace SiteExpensesManagement.App.Contracts.Dtos.DuesDtos
 {
     public class DuesForAddDto
     {

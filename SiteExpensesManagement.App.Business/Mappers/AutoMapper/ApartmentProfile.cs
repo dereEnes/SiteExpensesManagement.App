@@ -18,6 +18,11 @@ namespace SiteExpensesManagement.App.Business.Mappers.AutoMapper
                 .ForMember(dest => dest.Bills, opt => opt.MapFrom(src => src.Bills))
                 .ForMember(dest => dest.User, opt => opt.MapFrom(src => src.User))
                 .ForMember(dest => dest.Block, opt => opt.MapFrom(src => src.Block.ToString()));
+
+            CreateMap<Apartment, ApartmentDuesDto>()
+                .ForMember(dest => dest.Dues, opt => opt.MapFrom(src => src.Dues))
+                .ForMember(dest => dest.Block, src => src.MapFrom(src => src.Block.ToString()))
+                .ForMember(dest => dest.User, src => src.MapFrom(src => src.User));
         }
     }
 }

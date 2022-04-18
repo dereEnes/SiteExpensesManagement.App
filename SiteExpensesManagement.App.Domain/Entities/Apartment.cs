@@ -7,6 +7,11 @@ namespace SiteExpensesManagement.App.Domain.Entities
 {
     public class Apartment:BaseEntity
     {
+        public Apartment()
+        {
+            Dues = new List<Dues>();
+            Bills = new List<Bill>();
+        }
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
         public Blocks Block { get; set; }
@@ -15,7 +20,7 @@ namespace SiteExpensesManagement.App.Domain.Entities
         public int ApartmentNo { get; set; }
         public byte FloorNumber { get; set; }
         public bool IsEmpty { get; set; }
-        public List<Dues> Dues { get; set; } = new List<Dues>();
-        public List<Bill> Bills { get; set; } = new List<Bill>();
+        public List<Dues> Dues { get; set; } 
+        public List<Bill> Bills { get; set; }
     } 
 }
