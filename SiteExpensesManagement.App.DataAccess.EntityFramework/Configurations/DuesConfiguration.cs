@@ -9,7 +9,7 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations
     {
         public void Configure(EntityTypeBuilder<Dues> builder)
         {
-            builder.ToTable("Dues");
+            builder.ToTable("Dues", "dbo");
             builder.HasKey(d => d.Id);
 
             builder.HasOne<Apartment>(b => b.Apartment)

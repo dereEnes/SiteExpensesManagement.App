@@ -51,7 +51,6 @@ namespace SiteExpensesManagement.App.Business.Concretes
             else if (billForAddDto.Target == Targets.Hepsi)
             {
                 AddBillToAllApartments(billToAdd);
-                
             }
             else
             {
@@ -74,15 +73,16 @@ namespace SiteExpensesManagement.App.Business.Concretes
                 _repository.Add(bill);
             }
         }
-        private async Task AddBillToAllApartments(Bill bill)
+        private void AddBillToAllApartments(Bill bill)
         {
-            var apartmentsIdList =await _apartmentService.GetAllApartmentsId();
+            var apartmentsIdList = _apartmentService.GetAllApartmentsId();
             foreach (int id in apartmentsIdList)
             {
                 bill.ApartmentId = id;
                 _repository.Add(bill);
                 _unitOfWork.Commit();
             }
+            
         }
         public IResult Delete(int id)
         {

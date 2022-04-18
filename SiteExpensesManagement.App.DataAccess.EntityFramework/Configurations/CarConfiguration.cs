@@ -9,7 +9,7 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations
     {
         public void Configure(EntityTypeBuilder<Car> builder)
         {
-            builder.ToTable("Cars");
+            builder.ToTable("Cars", "dbo");
             builder.HasKey(x => x.Id);
 
             builder.Property(c => c.LicencePlate).HasMaxLength(20);

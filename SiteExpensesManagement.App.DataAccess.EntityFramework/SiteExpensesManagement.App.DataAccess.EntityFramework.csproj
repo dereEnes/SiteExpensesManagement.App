@@ -13,6 +13,8 @@
     <Compile Remove="Migrations\20220413115832_IsEmpty,hasRead default value removed.Designer.cs" />
     <Compile Remove="Migrations\20220415111824_Messages table updated.cs" />
     <Compile Remove="Migrations\20220415111824_Messages table updated.Designer.cs" />
+    <Compile Remove="Migrations\20220418112100_valueGEnertedOnAdd, changing default schema.cs" />
+    <Compile Remove="Migrations\20220418112100_valueGEnertedOnAdd, changing default schema.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

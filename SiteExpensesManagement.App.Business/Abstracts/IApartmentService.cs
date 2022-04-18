@@ -16,6 +16,6 @@ namespace SiteExpensesManagement.App.Business.Abstracts
         IDataResult<List<ApartmentViewModel>> GetAll();
         int GetApartmentIdByNo(int apartmentNo);
         List<int> GetApartmentsIdByBlock(Blocks block);
-        Task<List<int>> GetAllApartmentsId();
+        List<int> GetAllApartmentsId();
     }
 }

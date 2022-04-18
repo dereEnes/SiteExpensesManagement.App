@@ -9,7 +9,7 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations
     {
         public void Configure(EntityTypeBuilder<RoomType> builder)
         {
-            builder.ToTable("RoomTypes");
+            builder.ToTable("RoomTypes", "dbo");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.IsDeleted).HasDefaultValue(false);
             builder.Property(x => x.CountOfRooms).HasMaxLength(50);

@@ -105,13 +105,21 @@ namespace SiteExpensesManagement.App.Business.Concretes
         public List<int> GetApartmentsIdByBlock(Blocks block)
         {
             var list = new List<int>();
-            var result = _repository.Get(x => x.Block == block).ForEachAsync(x => list.Add(x.Id));
+            var result = _repository.Get(x => x.Block == block);
+            foreach (var item in result)
+            {
+                list.Add(item.Id);
+            }
             return list;
         }
-        public async Task<List<int>> GetAllApartmentsId()
+        public List<int> GetAllApartmentsId()
         {
             var list = new List<int>();
-            await _repository.GetAll().ForEachAsync(x => list.Add(x.Id));
+            var result = _repository.GetAll();
+            foreach (var item in result)
+            {
+                list.Add(item.Id);
+            }
             return list;
         }
     }

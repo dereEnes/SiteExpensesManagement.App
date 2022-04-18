@@ -11,7 +11,7 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations
     {
         public void Configure(EntityTypeBuilder<Message> builder)
         {
-            builder.ToTable("Messages");
+            builder.ToTable("Messages", "dbo");
             builder.HasKey(x => x.Id);
 
             builder.HasOne<ApplicationUser>(m => m.Sender)

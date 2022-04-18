@@ -11,7 +11,7 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations
     {
         public void Configure(EntityTypeBuilder<Apartment> builder)
         {
-            builder.ToTable("Apartments");
+            builder.ToTable("Apartments", "dbo");
             builder.HasKey(x => x.Id);
 
             builder.HasOne<ApplicationUser>(a => a.User)
