@@ -25,12 +25,12 @@ namespace SiteExpensesManagement.App.Controllers
             _roomTypeService = roomTypeService;
         }
 
-        public ActionResult Index()
+        public IActionResult Index()
         {
             return View(_apartmentService.GetAll().Data);
         }
 
-        public ActionResult Details(int? id)
+        public IActionResult Details(int? id)
         {
             return View();
         }
@@ -56,7 +56,7 @@ namespace SiteExpensesManagement.App.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create()
+        public IActionResult Create()
         {
             ViewBag.Users = GetUsers();
             ViewBag.RoomTypes = GetRoomTypes();
@@ -64,23 +64,19 @@ namespace SiteExpensesManagement.App.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ApartmentForCreateDto apartmentForCreateDto)
+        public IActionResult Create(ApartmentForCreateDto apartmentForCreateDto)
         {
-            ApartmentValidator categoryValidator = new ApartmentValidator();
-            ValidationResult validationResult = categoryValidator.Validate(apartmentForCreateDto);
-            if (!validationResult.IsValid)
+            if (!ModelState.IsValid)
             {
-                foreach (var item in validationResult.Errors)
-                {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                }
-                return View();
+                ViewBag.Users = GetUsers();
+                ViewBag.RoomTypes = GetRoomTypes();
+                return View(apartmentForCreateDto);
             }
             var result = _apartmentService.Add(apartmentForCreateDto);
             return RedirectToAction("Index");
         }
 
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             var result = _apartmentService.GetById(id);
             if (result.Success)
@@ -94,7 +90,7 @@ namespace SiteExpensesManagement.App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, ApartmentForUpdateDto apartmentForUpdateDto)
+        public IActionResult Edit(int id, ApartmentForUpdateDto apartmentForUpdateDto)
         {
             try
             {
@@ -106,7 +102,7 @@ namespace SiteExpensesManagement.App.Controllers
             }
         }
         [HttpGet]
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             var result = _apartmentService.GetById(id);
             if (result.Success)
@@ -117,7 +113,7 @@ namespace SiteExpensesManagement.App.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             _apartmentService.Delete(id);
             return RedirectToAction("Index");

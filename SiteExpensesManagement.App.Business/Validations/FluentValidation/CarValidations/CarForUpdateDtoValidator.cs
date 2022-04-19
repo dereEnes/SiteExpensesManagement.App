@@ -10,8 +10,16 @@ namespace SiteExpensesManagement.App.Business.Validations.FluentValidation.CarVa
     {
         public CarForUpdateDtoValidator()
         {
-            RuleFor(x => x.UserId).NotEmpty().MinimumLength(30).MaximumLength(70).WithMessage("Hatalı kullanıcı seçimi");
-            RuleFor(x => x.LicencePlate).NotNull().MaximumLength(20).MinimumLength(7).WithMessage("Geçersiz Plaka Numarası");
+            RuleFor(x => x.UserId)
+                .NotEmpty()
+                .MinimumLength(30)
+                .MaximumLength(70)
+                .WithMessage("Hatalı kullanıcı seçimi");
+
+            RuleFor(x => x.LicencePlate)
+                .NotNull().MaximumLength(20)
+                .MinimumLength(7)
+                .WithMessage("Geçersiz Plaka Numarası");
         }
     }
 }

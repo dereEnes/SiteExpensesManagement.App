@@ -1,4 +1,6 @@
 using AutoMapper;
+using FluentValidation.AspNetCore;
+using FluentValidation.Validators;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -8,6 +10,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SiteExpensesManagement.App.Business.Abstracts;
 using SiteExpensesManagement.App.Business.Concretes;
+using SiteExpensesManagement.App.Business.Validations.CarValidations;
+using SiteExpensesManagement.App.Business.Validations.FluentValidation.ApartmentValidations;
+using SiteExpensesManagement.App.Business.Validations.FluentValidation.BillValidations;
+using SiteExpensesManagement.App.Business.Validations.FluentValidation.CarValidations;
+using SiteExpensesManagement.App.Business.Validations.FluentValidation.CreditCardValidations;
+using SiteExpensesManagement.App.Business.Validations.FluentValidation.DuesValidations;
+using SiteExpensesManagement.App.Business.Validations.FluentValidation.MessageValidations;
+using SiteExpensesManagement.App.Business.Validations.FluentValidation.RoomTypeValidations;
 using SiteExpensesManagement.App.DataAccess.EntityFramework;
 using SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.Abstracts;
 using SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.Concretes;
@@ -28,6 +38,21 @@ namespace SiteExpensesManagement.App
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers().AddFluentValidation(fv =>
+            {
+                fv.RegisterValidatorsFromAssemblyContaining<CreditCardValidator>();
+                fv.RegisterValidatorsFromAssemblyContaining<ApartmentForAddDtoValidator>();
+                fv.RegisterValidatorsFromAssemblyContaining<BillForAddDtoValidator>();
+                fv.RegisterValidatorsFromAssemblyContaining<BillForUpdateDtoValidator>();
+                fv.RegisterValidatorsFromAssemblyContaining<DuesForAddDtoValidator>();
+                fv.RegisterValidatorsFromAssemblyContaining<DuesForUpdateDtoValidator>();
+                fv.RegisterValidatorsFromAssemblyContaining<CarForAddDtoValidator>();
+                fv.RegisterValidatorsFromAssemblyContaining<CarForUpdateDtoValidator>();
+                fv.RegisterValidatorsFromAssemblyContaining<MessageForAddDtoValidator>();
+                fv.RegisterValidatorsFromAssemblyContaining<MessageForUpdateDtoValidator>();
+                fv.RegisterValidatorsFromAssemblyContaining<RoomTypeForAddDtoValidator>();
+            });
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
@@ -49,7 +74,10 @@ namespace SiteExpensesManagement.App
             services.AddTransient<IMessageService, MessageService>();
             services.AddTransient<IBillService, BillService>();
             services.AddTransient<IDuesService, DuesService>();
+            services.AddTransient<IPaymentService, PaymentService>();
 
+
+            services.AddHttpClient();
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",

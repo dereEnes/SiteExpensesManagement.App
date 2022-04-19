@@ -23,14 +23,13 @@ namespace SiteExpensesManagement.App.Controllers
             _apartmentService = apartmentService;
         }
         //[Authorize(Roles = "Admin")]
-        public ActionResult Index()
+        public IActionResult Index()
         {
             var result = _duesService.GetAll().Data;
             return View(result);
         }
 
-        // GET: DuesController/Details/5
-        public ActionResult ApartmentDues()
+        public IActionResult ApartmentDues()
         {
             var user = _userManager.GetUserId(User);
             var result = _apartmentService.GetDuesByUserId(user);
@@ -39,70 +38,25 @@ namespace SiteExpensesManagement.App.Controllers
         }
         //[Authorize(Roles = "Admin")]
         // GET: DuesController/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
 
-        // POST: DuesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(DuesForAddDto duesForAddDto)
+        public IActionResult Create(DuesForAddDto duesForAddDto)
         {
-            DuesForAddDtoValidator categoryValidator = new DuesForAddDtoValidator();
-            ValidationResult validationResult = categoryValidator.Validate(duesForAddDto);
-            if (!validationResult.IsValid)
+            if (!ModelState.IsValid)
             {
-                foreach (var item in validationResult.Errors)
-                {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                }
-                return View();
+                return View(duesForAddDto);
             }
             var result = _duesService.Add(duesForAddDto);
             return RedirectToAction("Index");
         }
-
-        // GET: DuesController/Edit/5
-        public ActionResult Edit(int id)
+        public IActionResult Delete(int id)
         {
             return View();
-        }
-
-        // POST: DuesController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: DuesController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: DuesController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

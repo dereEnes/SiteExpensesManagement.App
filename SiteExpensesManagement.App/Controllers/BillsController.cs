@@ -5,7 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 using SiteExpensesManagement.App.Business.Abstracts;
 using SiteExpensesManagement.App.Business.Validations.FluentValidation.BillValidations;
 using SiteExpensesManagement.App.Contracts.Dtos.Bills;
+using SiteExpensesManagement.App.Contracts.Dtos.Payments;
 using SiteExpensesManagement.App.Domain.Entities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SiteExpensesManagement.App.Controllers
 {
@@ -14,82 +17,82 @@ namespace SiteExpensesManagement.App.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IBillService _billService;
         private readonly IApartmentService _apartmentService;
+        private readonly IPaymentService _paymentService;
 
-        public BillsController(IBillService billService, UserManager<ApplicationUser> userManager, IApartmentService apartmentService)
+        public BillsController(IBillService billService,
+            UserManager<ApplicationUser> userManager,
+            IApartmentService apartmentService,
+            IPaymentService paymentService)
         {
             _billService = billService;
             _userManager = userManager;
             _apartmentService = apartmentService;
+            _paymentService = paymentService;
         }
 
-        public ActionResult Index()
+        public IActionResult Index()
         {
             return View(_billService.GetAll());
         }
 
-        public ActionResult ApartmentBills()
+        public IActionResult ApartmentBills()
         {
             string userId = _userManager.GetUserId(User);
             var apartment = _apartmentService.GetBillsByUserId(userId);
             return View(apartment);
         }
 
-        // GET: BillsController/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
-
-        // POST: BillsController/Create
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(BillForAddDto billForAddDto)
+        public IActionResult Create(BillForAddDto billForAddDto)
         {
-            BillForAddDtoValidator categoryValidator = new BillForAddDtoValidator();
-            ValidationResult validationResult = categoryValidator.Validate(billForAddDto);
-            if (!validationResult.IsValid)
+            if (!ModelState.IsValid)
             {
-                foreach (var item in validationResult.Errors)
-                {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                }
-                return View();
+                return View(billForAddDto);
             }
             var result = _billService.Add(billForAddDto);
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public IActionResult Pay(int id)
+        {
+            ViewBag.Cards = GetUserCards().Result;
+            ViewBag.Bill = _billService.GetById(id);
+            return View();
+        }
+        private async Task<List<CreditCard>> GetUserCards()
+        {
+            var result = await _paymentService.GetUserCards(_userManager.GetUserId(User));
+            return result;
+        }
 
-        // GET: BillsController/Edit/5
-        public ActionResult Edit(int id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Pay([FromForm]PaymentForAddDto paymentForAddDto)
+        {
+            PaymentForAddDto payment = new PaymentForAddDto();
+            payment.CreditCard = creditCard;
+            var result =await _paymentService.Add(payment);
+            if (!ModelState.IsValid)
+            {
+                return View(creditCard);
+            }
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: BillsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: BillsController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: BillsController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Delete(int id, IFormCollection collection)
         {
             try
             {

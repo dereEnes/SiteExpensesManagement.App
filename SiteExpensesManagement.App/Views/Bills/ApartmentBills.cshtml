@@ -34,7 +34,7 @@
                 }
                 else
                 {
-                    <td class="text-warning">ÖDENMEDİ</td>
+                    <td><a asp-action="Pay" asp-route-id="@bill.Id" class="btn btn-warning">Öde</a></td>
                 }
             </tr>   
         }

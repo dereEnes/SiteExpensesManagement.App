@@ -22,7 +22,10 @@ namespace SiteExpensesManagement.App.Business.Concretes
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IApartmentService _apartmentService;
-        public BillService(IRepository<Bill> repository, IUnitOfWork unitOfWork, IMapper mapper, IApartmentService apartmentService)
+        public BillService(
+            IRepository<Bill> repository,
+            IUnitOfWork unitOfWork, IMapper mapper,
+            IApartmentService apartmentService)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
@@ -109,7 +112,9 @@ namespace SiteExpensesManagement.App.Business.Concretes
 
         public List<BillViewModel> GetAll()
         {
-            var result = _repository.GetAll().Include(x => x.Apartment).ToList();
+            var result = _repository.GetAll()
+                .Include(x => x.Apartment)
+                .ToList();
             return _mapper.Map<List<BillViewModel>>(result);
         }
 
@@ -121,14 +126,6 @@ namespace SiteExpensesManagement.App.Business.Concretes
 
         public IResult Update(BillForUpdateDto billForUpdateDto)
         {
-            BillForUpdateDtoValidator validator = new BillForUpdateDtoValidator();
-            ValidationResult result = validator.Validate(billForUpdateDto);
-
-            if (!result.IsValid )
-            {
-                return new ErrorResult("Geçersiz Fatura");
-            }
-
             var billToUpdate = _mapper.Map<Bill>(billForUpdateDto);
             _repository.Update(billToUpdate);
             _unitOfWork.Commit();
@@ -136,7 +133,10 @@ namespace SiteExpensesManagement.App.Business.Concretes
         }
         public bool CheckForAlreadyExist(BillForAddDto billForAddDto)
         {
-            var result = _repository.Get(x => x.Month == billForAddDto.Month && x.Year == billForAddDto.Year).FirstOrDefault();
+            var result = _repository.Get(x => x.Month == billForAddDto.Month &&
+                x.Year == billForAddDto.Year)
+                .FirstOrDefault();
+
             if (result is null)
             {
                 return false;

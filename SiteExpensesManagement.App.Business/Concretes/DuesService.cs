@@ -118,14 +118,6 @@ namespace SiteExpensesManagement.App.Business.Concretes
 
         public IResult Update(DuesForUpdateDto duesForUpdateDto)
         {
-            DuesForUpdateDtoValidator validator = new DuesForUpdateDtoValidator();
-            ValidationResult result = validator.Validate(duesForUpdateDto);
-
-            if (!result.IsValid)
-            {
-                return new ErrorResult("Geçersiz Aidat Bilgisi");
-            }
-
             var duesToUpdate = _mapper.Map<Dues>(duesForUpdateDto);
             _repository.Update(duesToUpdate);
             _unitOfWork.Commit();

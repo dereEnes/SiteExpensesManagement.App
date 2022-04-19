@@ -23,39 +23,30 @@ namespace SiteExpensesManagement.App.Controllers
             _userManager = userManager;
         }
 
-        // GET: CarsController
         public ActionResult Index()
         {
             var result = _carService.GetAll();
             return View(result.Data);
         }
 
-        // GET: CarsController/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(CarForAddDto carForAddDto)
+        public IActionResult Create(CarForAddDto carForAddDto)
         {
-            CarForAddDtoValidator carValidator = new CarForAddDtoValidator();
-            ValidationResult validationResult = carValidator.Validate(carForAddDto);
-            if (!validationResult.IsValid)
+            if (!ModelState.IsValid)
             {
-                foreach (var item in validationResult.Errors)
-                {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                }
                 ViewBag.Users = GetUsers();
-                return View();
+                return View(carForAddDto);
             }
-
             var result = _carService.Add(carForAddDto);
             return RedirectToAction("Index");
         }
 
-        public ActionResult Create()
+        public IActionResult Create()
         {
             ViewBag.Users = GetUsers();
             return View();
@@ -70,8 +61,8 @@ namespace SiteExpensesManagement.App.Controllers
                     Text = $"{u.FirstName} {u.LastName}"
                 }).ToList();
         }
-        // GET: CarsController/Edit/5
-        public ActionResult Edit(int id)
+        
+        public IActionResult Edit(int id)
         {
             var result = _carService.GetById(id);
             if (result.Success)
@@ -81,27 +72,20 @@ namespace SiteExpensesManagement.App.Controllers
             return NotFound();
         }
 
-        // POST: CarsController/Edit/5
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(CarForUpdateDto carForUpdateDto)
+        public IActionResult Edit(CarForUpdateDto carForUpdateDto)
         {
-            CarForUpdateDtoValidator categoryValidator = new CarForUpdateDtoValidator();
-            ValidationResult validationResult = categoryValidator.Validate(carForUpdateDto);
-            if (!validationResult.IsValid)
+            if (!ModelState.IsValid)
             {
-                foreach (var item in validationResult.Errors)
-                {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                }
-                return View();
+                return View(carForUpdateDto);
             }
             var result = _carService.Update(carForUpdateDto);
             return RedirectToAction("Index");
         }
 
-        // GET: CarsController/Delete/5
-        public ActionResult Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id is null)
             {
@@ -111,10 +95,9 @@ namespace SiteExpensesManagement.App.Controllers
             return View(result.Data);
         }
 
-        // POST: CarsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             var result = _carService.Delete(id);
             if (result.Success)

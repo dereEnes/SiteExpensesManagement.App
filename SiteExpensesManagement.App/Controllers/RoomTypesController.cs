@@ -26,23 +26,12 @@ namespace SiteExpensesManagement.App.Controllers
         [HttpPost]
         public IActionResult Create(RoomTypeForAddDto roomTypeForAddDto)
         {
-            RoomTypeForAddDtoValidator roomTypeValidator = new RoomTypeForAddDtoValidator();
-            ValidationResult validationResult = roomTypeValidator.Validate(roomTypeForAddDto);
-            if (!validationResult.IsValid)
+            if (!ModelState.IsValid)
             {
-                foreach (var item in validationResult.Errors)
-                {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                }
+                return View(roomTypeForAddDto);
             }
-
             var result = _roomTypeService.Add(roomTypeForAddDto);
-            if (result.Success)
-            {
-                return RedirectToAction("Index");
-            }
-            ModelState.AddModelError("CountOfRooms",result.Message);
-            return View();
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public IActionResult Delete(int? id)

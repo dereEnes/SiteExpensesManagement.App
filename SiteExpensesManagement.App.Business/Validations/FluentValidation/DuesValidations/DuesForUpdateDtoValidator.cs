@@ -10,7 +10,9 @@ namespace SiteExpensesManagement.App.Business.Validations.FluentValidation.DuesV
     {
         public DuesForUpdateDtoValidator()
         {
-            RuleFor(x => x.Price).GreaterThanOrEqualTo(0).WithMessage("Fatura tutarı en az 0 olabilir!");
+            RuleFor(x => x.Price)
+                .GreaterThanOrEqualTo(0)
+                .WithMessage("Fatura tutarı en az 0 olabilir!");
         }
     }
 }

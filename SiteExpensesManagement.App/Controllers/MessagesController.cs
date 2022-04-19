@@ -21,74 +21,54 @@ namespace SiteExpensesManagement.App.Controllers
         }
 
        // [Authorize(Roles = "Admin")]
-        public ActionResult Index()
+        public IActionResult Index()
         {
             return View(_messageService.GetAll().Data);
         }
 
         // Get : MessagesController/ForwardedMessages -> returns User' Messages
         // [Authorize(Roles = "Basic")]
-        public ActionResult ForwardedMessages()
+        public IActionResult ForwardedMessages()
         {
             var result = _messageService.GetUsersMessage(_userManager.GetUserId(User));
             return View(result.Data);
         }
 
-        // GET: MessagesController/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
             var result = _messageService.GetById(id);
             return View(result.Data);
         }
-        public ActionResult DetailsForSender(int id)
+        public IActionResult DetailsForSender(int id)
         {
             var result = _messageService.GetByIdForSender(id);
             return View(result.Data);
         }
 
        // [Authorize(Roles = "Basic")]
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
         // [Authorize(Roles = "Basic")]
         [HttpPost]
-        public ActionResult Create(MessageForAddDto messageForAddDto)
+        public IActionResult Create(MessageForAddDto messageForAddDto)
         {
             messageForAddDto.SenderId = _userManager.GetUserId(User);
-            MessageForAddDtoValidator validator = new MessageForAddDtoValidator();
-            var validationResult = validator.Validate(messageForAddDto);
-            if (!validationResult.IsValid)
+            
+            if (!ModelState.IsValid)
             {
-                foreach (var item in validationResult.Errors)
-                {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                }
-                return View();
+                return View(messageForAddDto);
             }
              _messageService.Add(messageForAddDto);
             return RedirectToAction("ForwardedMessages");
         }
 
-        // GET: MessagesController/Delete/5
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             _messageService.Delete(id);
             return RedirectToAction("Index");
         }
 
-        // POST: MessagesController/Delete/5
-        //[HttpPost]
-        //public ActionResult Delete(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
     }
 }

@@ -18,7 +18,7 @@ namespace SiteExpensesManagement.App.Controllers
         }
 
         // GET: UsersController
-        public ActionResult Index()
+        public IActionResult Index()
         {
             return View();
         }
@@ -32,13 +32,13 @@ namespace SiteExpensesManagement.App.Controllers
                 }).ToList();
         }
         // GET: UsersController/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
             return View();
         }
 
         // GET: UsersController/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
@@ -46,7 +46,7 @@ namespace SiteExpensesManagement.App.Controllers
         // POST: UsersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public IActionResult Create(IFormCollection collection)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace SiteExpensesManagement.App.Controllers
         }
 
         // GET: UsersController/Edit/5
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             return View();
         }
@@ -67,7 +67,7 @@ namespace SiteExpensesManagement.App.Controllers
         // POST: UsersController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public IActionResult Edit(int id, IFormCollection collection)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace SiteExpensesManagement.App.Controllers
         }
 
         // GET: UsersController/Delete/5
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             return View();
         }
@@ -88,7 +88,7 @@ namespace SiteExpensesManagement.App.Controllers
         // POST: UsersController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
