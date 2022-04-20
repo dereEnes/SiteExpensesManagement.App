@@ -1,5 +1,5 @@
 ﻿@using SiteExpensesManagement.App.Contracts.Dtos.Payments
-@model PaymentForBillDto
+@model PaymentForDuesDto
 
 <link rel="stylesheet" src="~/css/payment.css"/>
 <div class="row">
@@ -8,30 +8,19 @@
         <tr>
             <th>Apartman Numarası</th>
             <th>Blok</th>
-            <th>Fatura Tipi</th>
             <th>Yıl</th>
             <th>Ay</th>
             <th>Tutar</th>
-            <th>Son Ödeme Tarihi</th>
             <th>Durum</th>
         </tr>
     </thead>
     <tbody>
             <tr>
-            <td>@ViewBag.Bill.Apartment.ApartmentNo</td>
-            <td>@ViewBag.Bill.Apartment.Block.ToString()</td>
-            <td>@ViewBag.Bill.Category.ToString()</td>
-            <td>@ViewBag.Bill.Year</td>
-            <td>@ViewBag.Bill.Month.ToString()</td>
-            <td>@ViewBag.Bill.Price <i class="fa-solid fa-turkish-lira-sign"></i></td>
-                @if (@ViewBag.Bill.ExpiryDate > DateTime.Now)
-                {
-                    <td class ="text-danger">@ViewBag.Bill.ExpiryDate.ToString("dd:MM:yyyy")</td>
-                }
-                else
-                {
-                    <td>@ViewBag.Bill.ExpiryDate.ToString("dd:MM:yyyy")</td>
-                } 
+            <td>@ViewBag.Dues.Apartment.ApartmentNo</td>
+            <td>@ViewBag.Dues.Apartment.Block.ToString()</td>
+            <td>@ViewBag.Dues.Year</td>
+            <td>@ViewBag.Dues.Month.ToString()</td>
+            <td>@ViewBag.Dues.Price <i class="fa-solid fa-turkish-lira-sign"></i></td>
                 <td class="text-warning">ÖDENMEDİ</td>
             </tr>   
     </tbody>
@@ -42,13 +31,13 @@
 <div class="container p-0">
     <div class="card px-4">
         
-        <form asp-action="Pay" asp-controller="Bills" method="post">
+        <form asp-action="Pay" asp-controller="Dues" method="post">
         <p class="h8 py-3">Ödeme Detayları</p>
         <div class="row gx-3">
             <div class="col-12">
                 <hr />
-                <input type="hidden" asp-for="BillId" value="@ViewBag.Bill.Id"/>
-                <input type="hidden" asp-for="Amount" value="@ViewBag.Bill.Price"/>
+                <input type="hidden" asp-for="DuesId" value="@ViewBag.Dues.Id"/>
+                <input type="hidden" asp-for="Amount" value="@ViewBag.Dues.Price"/>
             <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="d-flex flex-column">
                     <p class="text mb-1">Kart Üzerindeki İsim</p>
@@ -85,7 +74,7 @@
                 </div>
             </div>
             <div class="col-12">
-                    <button type="submit" class="ps-3 mb-3 btn btn-primary">Öde  @if (!(ViewBag.Bill is null)) {@ViewBag.Bill.Price }<i class="fa-solid fa-turkish-lira-sign"></i></button>
+                    <button type="submit" class="ps-3 mb-3 btn btn-primary">Öde  @if (!(ViewBag.Dues is null)) {@ViewBag.Dues.Price }<i class="fa-solid fa-turkish-lira-sign"></i></button>
                 </div>
             <div class="col-12">
                 @if(!(ViewBag.Card is null)){

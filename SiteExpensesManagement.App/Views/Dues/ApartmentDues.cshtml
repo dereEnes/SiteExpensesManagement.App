@@ -23,7 +23,7 @@
                 }
                 else
                 {
-                    <td class="text-warning">ÖDENMEDİ</td>
+                    <td><a asp-action="Pay" asp-controller="Dues" asp-route-id="@dues.Id" class="btn btn-warning">Öde</a></td>
                 }
             </tr>   
         }

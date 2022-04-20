@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SiteExpensesManagement.App.Contracts.Dtos.Payments
 {
-    public class PaymentForAddDto
+    public class PaymentForBillDto
     {
         public int BillId { get; set; }
         public CreditCard CreditCard { get; set; }

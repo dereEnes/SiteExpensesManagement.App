@@ -125,7 +125,11 @@ namespace SiteExpensesManagement.App.Business.Concretes
 
         public IDataResult<DuesViewModel> GetById(int id)
         {
-            return new SuccessDataResult<DuesViewModel>(_mapper.Map<DuesViewModel>(_repository.GetById(id)));
+            return new SuccessDataResult<DuesViewModel>(
+                _mapper.Map<DuesViewModel>(
+                    _repository.Get(x => x.Id == id)
+                    .Include(x => x.Apartment)
+                    .SingleOrDefault()));
         }
 
         public IResult Update(DuesForUpdateDto duesForUpdateDto)

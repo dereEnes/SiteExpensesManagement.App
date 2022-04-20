@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using SiteExpensesManagement.App.Business.Abstracts;
 using SiteExpensesManagement.App.Business.Validations.FluentValidation.DuesValidations;
 using SiteExpensesManagement.App.Contracts.Dtos.DuesDtos;
+using SiteExpensesManagement.App.Contracts.Dtos.Payments;
 using SiteExpensesManagement.App.Domain.Entities;
+using System.Threading.Tasks;
 
 namespace SiteExpensesManagement.App.Controllers
 {
@@ -64,7 +66,7 @@ namespace SiteExpensesManagement.App.Controllers
         public IActionResult Pay(int id)
         {
             ViewBag.Card = GetUserCards().Result;
-            ViewBag.Bill = _duesService.GetById(id);
+            ViewBag.Dues = _duesService.GetById(id).Data;
             return View();
         }
         private async Task<CreditCard> GetUserCards()
@@ -74,16 +76,16 @@ namespace SiteExpensesManagement.App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Pay([FromForm] PaymentForAddDto paymentForAddDto)
+        public async Task<IActionResult> Pay([FromForm] PaymentForDuesDto paymentForDuesDto)
         {
             if (!ModelState.IsValid)
             {
                 ViewBag.Card = GetUserCards().Result;
-                ViewBag.Bill = _duesService.GetById(paymentForAddDto.BillId);
-                return View(paymentForAddDto);
+                ViewBag.Dues = _duesService.GetById(paymentForDuesDto.DuesId);
+                return View(paymentForDuesDto);
             }
 
-            var result = await _paymentService.Add(paymentForAddDto);
+            var result = await _paymentService.Add(paymentForDuesDto);
             return RedirectToAction("Index");
         }
         public IActionResult Delete(int id)

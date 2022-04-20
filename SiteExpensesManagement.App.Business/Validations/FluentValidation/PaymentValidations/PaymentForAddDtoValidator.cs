@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SiteExpensesManagement.App.Business.Validations.FluentValidation.PaymentValidations
 {
-    public class PaymentForAddDtoValidator:AbstractValidator<PaymentForAddDto>
+    public class PaymentForAddDtoValidator:AbstractValidator<PaymentForBillDto>
     {
         public PaymentForAddDtoValidator()
         {

@@ -4,7 +4,7 @@ namespace SiteExpensesManagement.App.Contracts.ViewModels.Dues
 {
     public class DuesViewModel
     {
-        public int ApartmentId { get; set; }
+        public int Id { get; set; }
         public Apartment Apartment { get; set; }
         public decimal Price { get; set; }
         public string Month { get; set; }

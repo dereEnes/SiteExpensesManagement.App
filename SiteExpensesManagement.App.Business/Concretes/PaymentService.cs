@@ -23,7 +23,16 @@ namespace SiteExpensesManagement.App.Business.Concretes
             new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<List<CreditCard>> Add(PaymentForAddDto paymentForAddDto)
+        public async Task<List<CreditCard>> Add(PaymentForBillDto paymentForAddDto)
+        {
+            var url = "https://localhost:44326/api/creditcards/getusercreditcards";
+            var resultJson = await _httpClient.GetStringAsync(url);
+            var result = JsonConvert.DeserializeObject<List<CreditCard>>(resultJson);
+
+            Task.WaitAll();
+            return result;
+        }
+        public async Task<List<CreditCard>> Add(PaymentForDuesDto paymentForAddDto)
         {
             var url = "https://localhost:44326/api/creditcards/getusercreditcards";
             var resultJson = await _httpClient.GetStringAsync(url);

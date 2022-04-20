@@ -72,7 +72,7 @@ namespace SiteExpensesManagement.App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Pay([FromForm]PaymentForAddDto paymentForAddDto)
+        public async Task<IActionResult> Pay([FromForm]PaymentForBillDto paymentForAddDto)
         {
             if (!ModelState.IsValid)
             {
