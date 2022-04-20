@@ -120,7 +120,9 @@ namespace SiteExpensesManagement.App.Business.Concretes
 
         public BillViewModel GetById(int id)
         {
-            var result = _repository.GetById(id);
+            var result = _repository.Get(x=> x.Id == id)
+                .Include(x => x.Apartment)
+                .FirstOrDefault();
             return _mapper.Map<BillViewModel>(result);
         }
 

@@ -67,19 +67,21 @@ namespace SiteExpensesManagement.App.Controllers
         }
         private async Task<CreditCard> GetUserCards()
         {
-            var result = await _paymentService.GetUserCard(_userManager.GetUserId(User));
-            return result;
+            return await _paymentService.GetUserCard(_userManager.GetUserId(User));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Pay([FromForm]PaymentForAddDto paymentForAddDto)
         {
-            var result =await _paymentService.Add(paymentForAddDto);
             if (!ModelState.IsValid)
             {
+                ViewBag.Card = GetUserCards().Result;
+                ViewBag.Bill = _billService.GetById(paymentForAddDto.BillId);
                 return View(paymentForAddDto);
             }
+
+            var result = await _paymentService.Add(paymentForAddDto);
             return RedirectToAction("Index");
         }
 

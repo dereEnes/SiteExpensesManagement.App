@@ -37,10 +37,7 @@ namespace SiteExpensesManagement.App.Business.Concretes
         {
             var url = $"https://localhost:44326/api/creditcards/getbyid?id={id}";
             var resultJson = await _httpClient.GetStringAsync(url);
-            var result = JsonConvert.DeserializeObject<CreditCard>(resultJson);
-
-            Task.WaitAll();
-            return result;
+            return JsonConvert.DeserializeObject<CreditCard>(resultJson); 
         }
     }
 }

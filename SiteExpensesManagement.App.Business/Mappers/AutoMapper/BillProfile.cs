@@ -15,9 +15,10 @@ namespace SiteExpensesManagement.App.Business.Mappers.AutoMapper
             CreateMap<BillForAddDto,Bill>();
             CreateMap<BillForUpdateDto,Bill>();
 
-            CreateMap<Bill,BillViewModel>()
+            CreateMap<Bill, BillViewModel>()
                 .ForMember(dest => dest.Month, opt => opt.MapFrom(src => src.Month.ToString()))
-                .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.ToString()));
+                .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.ToString()))
+                .ForMember(dest => dest.Apartment, opt => opt.MapFrom(src => src.Apartment));
         }
     }
 }

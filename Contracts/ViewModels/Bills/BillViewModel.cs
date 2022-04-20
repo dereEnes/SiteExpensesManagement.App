@@ -6,7 +6,7 @@ namespace SiteExpensesManagement.App.Contracts.ViewModels.Bills
 {
     public class BillViewModel
     {
-        public int ApartmentId { get; set; }
+        public int Id { get; set; }
         public Apartment Apartment { get; set; }
         public string Category { get; set; }
         public decimal Price { get; set; }

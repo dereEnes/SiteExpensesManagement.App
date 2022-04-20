@@ -17,6 +17,7 @@ using SiteExpensesManagement.App.Business.Validations.FluentValidation.CarValida
 using SiteExpensesManagement.App.Business.Validations.FluentValidation.CreditCardValidations;
 using SiteExpensesManagement.App.Business.Validations.FluentValidation.DuesValidations;
 using SiteExpensesManagement.App.Business.Validations.FluentValidation.MessageValidations;
+using SiteExpensesManagement.App.Business.Validations.FluentValidation.PaymentValidations;
 using SiteExpensesManagement.App.Business.Validations.FluentValidation.RoomTypeValidations;
 using SiteExpensesManagement.App.DataAccess.EntityFramework;
 using SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.Abstracts;
@@ -51,6 +52,7 @@ namespace SiteExpensesManagement.App
                 fv.RegisterValidatorsFromAssemblyContaining<MessageForAddDtoValidator>();
                 fv.RegisterValidatorsFromAssemblyContaining<MessageForUpdateDtoValidator>();
                 fv.RegisterValidatorsFromAssemblyContaining<RoomTypeForAddDtoValidator>();
+                fv.RegisterValidatorsFromAssemblyContaining<PaymentForAddDtoValidator>();
             });
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
