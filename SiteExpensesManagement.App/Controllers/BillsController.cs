@@ -61,13 +61,13 @@ namespace SiteExpensesManagement.App.Controllers
         [HttpGet]
         public IActionResult Pay(int id)
         {
-            ViewBag.Cards = GetUserCards().Result;
+            ViewBag.Card = GetUserCards().Result;
             ViewBag.Bill = _billService.GetById(id);
             return View();
         }
-        private async Task<List<CreditCard>> GetUserCards()
+        private async Task<CreditCard> GetUserCards()
         {
-            var result = await _paymentService.GetUserCards(_userManager.GetUserId(User));
+            var result = await _paymentService.GetUserCard(_userManager.GetUserId(User));
             return result;
         }
 
@@ -75,12 +75,10 @@ namespace SiteExpensesManagement.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Pay([FromForm]PaymentForAddDto paymentForAddDto)
         {
-            PaymentForAddDto payment = new PaymentForAddDto();
-            payment.CreditCard = creditCard;
-            var result =await _paymentService.Add(payment);
+            var result =await _paymentService.Add(paymentForAddDto);
             if (!ModelState.IsValid)
             {
-                return View(creditCard);
+                return View(paymentForAddDto);
             }
             return RedirectToAction("Index");
         }

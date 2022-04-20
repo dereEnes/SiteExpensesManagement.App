@@ -25,7 +25,7 @@ namespace SiteExpensesManagement.App.Business.Concretes
 
         public async Task<List<CreditCard>> Add(PaymentForAddDto paymentForAddDto)
         {
-            var url = "https://localhost:44326/creditcards/getusercreditcards";
+            var url = "https://localhost:44326/api/creditcards/getusercreditcards";
             var resultJson = await _httpClient.GetStringAsync(url);
             var result = JsonConvert.DeserializeObject<List<CreditCard>>(resultJson);
 
@@ -33,11 +33,11 @@ namespace SiteExpensesManagement.App.Business.Concretes
             return result;
         }
 
-        public async Task<List<CreditCard>> GetUserCards(string id)
+        public async Task<CreditCard> GetUserCard(string id)
         {
-            var url = "https://localhost:44326/creditcards/getusercreditcards";
+            var url = $"https://localhost:44326/api/creditcards/getbyid?id={id}";
             var resultJson = await _httpClient.GetStringAsync(url);
-            var result = JsonConvert.DeserializeObject<List<CreditCard>>(resultJson);
+            var result = JsonConvert.DeserializeObject<CreditCard>(resultJson);
 
             Task.WaitAll();
             return result;
