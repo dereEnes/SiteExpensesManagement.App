@@ -29,11 +29,11 @@
             <td>@bill.Price <i class="fa-solid fa-turkish-lira-sign"></i></td>
                 @if (@bill.ExpiryDate > DateTime.Now)
                 {
-                    <td class ="text-danger">@bill.ExpiryDate.ToString("dd:MM:yyyy")</td>
+                    <td class ="text-success">@bill.ExpiryDate.ToString("dd:MM:yyyy")</td>
                 }
                 else
                 {
-                    <td>@bill.ExpiryDate.ToString("dd:MM:yyyy")</td>
+                    <td class ="text-danger">@bill.ExpiryDate.ToString("dd:MM:yyyy")</td>
                 }
                 @if (@bill.IsPayed)
                {

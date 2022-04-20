@@ -65,16 +65,28 @@ namespace SiteExpensesManagement.App.Business.Concretes
         private void AddDuesToApartment(Dues dues, int apartmentNo)
         {
             dues.ApartmentId = _apartmentService.GetApartmentIdByNo(apartmentNo);
+            if (dues.ApartmentId == 0)
+            {
+                return;
+            }
             _repository.Add(dues);
+            _unitOfWork.Commit();
         }
         private void AddDuesToAllBloks(Dues dues, Blocks block)
         {
             var apartmentsIdList = _apartmentService.GetApartmentsIdByBlock(block);
             foreach (int id in apartmentsIdList)
             {
-                dues.ApartmentId = id;
-                _repository.Add(dues);
+                _repository.Add(new Dues
+                {
+                    ApartmentId = id,
+                    CreatedAt = dues.CreatedAt,
+                    Month = dues.Month,
+                    Price = dues.Price,
+                    Year = dues.Year,
+                });
             }
+            _unitOfWork.Commit();
         }
         private void AddDuesToAllApartments(Dues dues)
         {

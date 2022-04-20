@@ -1,6 +1,11 @@
 ﻿@using SiteExpensesManagement.App.Contracts.ViewModels.Car
 @model List<CarViewModel>
-
+@{
+    if(!(ViewBag.Message is null))
+    {
+        <h2 class="text-success">@ViewBag.Message</h2>
+    }
+}
 
 <h1 class="mb-3 text-center">Site sakinlerinin araçları</h1>
 

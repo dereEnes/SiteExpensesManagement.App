@@ -68,16 +68,30 @@ namespace SiteExpensesManagement.App.Business.Concretes
         private void AddBillToApartment(Bill bill, int apartmentNo)
         {
             bill.ApartmentId = _apartmentService.GetApartmentIdByNo(apartmentNo);
+            if (bill.ApartmentId == 0)
+            {
+                return;
+            }
             _repository.Add(bill);
+            _unitOfWork.Commit();
         }
         private void AddBillToAllBloks(Bill bill, Blocks block)
         {
             var apartmentsIdList = _apartmentService.GetApartmentsIdByBlock(block);
             foreach (int id in apartmentsIdList)
             {
-                bill.ApartmentId = id;
-                _repository.Add(bill);
+                _repository.Add(new Bill
+                {
+                    ExpiryDate = bill.ExpiryDate,
+                    ApartmentId = id,
+                    Category = bill.Category,
+                    CreatedAt = bill.CreatedAt,
+                    Month = bill.Month,
+                    Price = bill.Price,
+                    Year = bill.Year
+                });
             }
+            _unitOfWork.Commit();
         }
         private void AddBillToAllApartments(Bill bill)
         {
@@ -135,8 +149,9 @@ namespace SiteExpensesManagement.App.Business.Concretes
         }
         public bool CheckForAlreadyExist(BillForAddDto billForAddDto)
         {
-            var result = _repository.Get(x => x.Month == billForAddDto.Month &&
-                x.Year == billForAddDto.Year)
+            var result = _repository.Get(x => x.Month == billForAddDto.Month
+            && x.Year == billForAddDto.Year
+            && x.Category == billForAddDto.Category)
                 .FirstOrDefault();
 
             if (result is null)

@@ -15,12 +15,18 @@ namespace SiteExpensesManagement.App.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IDuesService _duesService;
         private readonly IApartmentService _apartmentService;
+        private readonly IPaymentService _paymentService;
 
-        public DuesController(IDuesService duesService, UserManager<ApplicationUser> userManager, IApartmentService apartmentService)
+        public DuesController(
+            IDuesService duesService,
+            UserManager<ApplicationUser> userManager,
+            IApartmentService apartmentService,
+            IPaymentService paymentService)
         {
             _duesService = duesService;
             _userManager = userManager;
             _apartmentService = apartmentService;
+            _paymentService = paymentService;
         }
         //[Authorize(Roles = "Admin")]
         public IActionResult Index()
@@ -54,9 +60,36 @@ namespace SiteExpensesManagement.App.Controllers
             var result = _duesService.Add(duesForAddDto);
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public IActionResult Pay(int id)
+        {
+            ViewBag.Card = GetUserCards().Result;
+            ViewBag.Bill = _duesService.GetById(id);
+            return View();
+        }
+        private async Task<CreditCard> GetUserCards()
+        {
+            return await _paymentService.GetUserCard(_userManager.GetUserId(User));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Pay([FromForm] PaymentForAddDto paymentForAddDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Card = GetUserCards().Result;
+                ViewBag.Bill = _duesService.GetById(paymentForAddDto.BillId);
+                return View(paymentForAddDto);
+            }
+
+            var result = await _paymentService.Add(paymentForAddDto);
+            return RedirectToAction("Index");
+        }
         public IActionResult Delete(int id)
         {
             return View();
         }
+
     }
 }

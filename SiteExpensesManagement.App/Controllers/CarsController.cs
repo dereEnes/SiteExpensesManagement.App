@@ -43,6 +43,7 @@ namespace SiteExpensesManagement.App.Controllers
                 return View(carForAddDto);
             }
             var result = _carService.Add(carForAddDto);
+            ViewBag.Message = "Eklendi";
             return RedirectToAction("Index");
         }
 
