@@ -9,9 +9,12 @@ using SiteExpensesManagement.App.Contracts.Dtos.User;
 using SiteExpensesManagement.App.Domain.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using UserIdentityManagement.Web.Enums;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SiteExpensesManagement.App.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ApartmentsController : Controller
     {
         private readonly IApartmentService _apartmentService;
@@ -24,7 +27,7 @@ namespace SiteExpensesManagement.App.Controllers
             _userManager = userManager;
             _roomTypeService = roomTypeService;
         }
-
+        
         public IActionResult Index()
         {
             return View(_apartmentService.GetAll().Data);

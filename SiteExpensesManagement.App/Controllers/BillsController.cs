@@ -30,7 +30,7 @@ namespace SiteExpensesManagement.App.Controllers
             _apartmentService = apartmentService;
             _paymentService = paymentService;
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             return View(_billService.GetAll());
@@ -42,7 +42,7 @@ namespace SiteExpensesManagement.App.Controllers
             var apartment = _apartmentService.GetBillsByUserId(userId);
             return View(apartment);
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -59,7 +59,7 @@ namespace SiteExpensesManagement.App.Controllers
             var result = _billService.Add(billForAddDto);
             return RedirectToAction("Index");
         }
-        [Authorize(Roles = "Basic")]
+        [Authorize(Roles = "Basic, Admin")]
         [HttpGet]
         public IActionResult Pay(int id)
         {
@@ -71,7 +71,7 @@ namespace SiteExpensesManagement.App.Controllers
         {
             return await _paymentService.GetUserCard(_userManager.GetUserId(User));
         }
-
+        [Authorize(Roles = "Basic, Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Pay([FromForm]PaymentForBillDto paymentForAddDto)
@@ -98,7 +98,7 @@ namespace SiteExpensesManagement.App.Controllers
         {
             return View();
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id, IFormCollection collection)

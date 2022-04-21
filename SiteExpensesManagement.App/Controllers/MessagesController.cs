@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SiteExpensesManagement.App.Business.Abstracts;
-using SiteExpensesManagement.App.Business.Validations.FluentValidation.MessageValidations;
 using SiteExpensesManagement.App.Contracts.Dtos.Message;
 using SiteExpensesManagement.App.Domain.Entities;
 
@@ -20,14 +18,14 @@ namespace SiteExpensesManagement.App.Controllers
             _userManager = userManager;
         }
 
-       // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             return View(_messageService.GetAll().Data);
         }
 
-        // Get : MessagesController/ForwardedMessages -> returns User' Messages
-        // [Authorize(Roles = "Basic")]
+        // MessagesController/ForwardedMessages -> returns User' Messages
+        [Authorize(Roles = "Basic")]
         public IActionResult ForwardedMessages()
         {
             var result = _messageService.GetUsersMessage(_userManager.GetUserId(User));
@@ -45,12 +43,12 @@ namespace SiteExpensesManagement.App.Controllers
             return View(result.Data);
         }
 
-       // [Authorize(Roles = "Basic")]
+        [Authorize(Roles = "Basic")]
         public IActionResult Create()
         {
             return View();
         }
-        // [Authorize(Roles = "Basic")]
+         [Authorize(Roles = "Basic")]
         [HttpPost]
         public IActionResult Create(MessageForAddDto messageForAddDto)
         {

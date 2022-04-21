@@ -1,11 +1,11 @@
-﻿using FluentValidation.Results;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SiteExpensesManagement.App.Business.Abstracts;
-using SiteExpensesManagement.App.Business.Validations.FluentValidation.RoomTypeValidations;
 using SiteExpensesManagement.App.Contracts.Dtos;
 
 namespace SiteExpensesManagement.App.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RoomTypesController : Controller
     {
         private readonly IRoomTypeService _roomTypeService;

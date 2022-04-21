@@ -68,6 +68,10 @@ namespace SiteExpensesManagement.App.Business.Concretes
         public IResult Update(CarForUpdateDto carForUpdateDto)
         {
             var result = _mapper.Map<Car>(carForUpdateDto);
+            if (IsCarAlreadyExist(carForUpdateDto.LicencePlate))
+            {
+                return new ErrorResult("Böyle bir araç zaten kayıtlı");
+            }
             _repository.Update(result);
             _unitOfWork.Commit();
             return new SuccessResult("Araç güncellendi");

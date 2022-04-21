@@ -1,4 +1,5 @@
 ﻿using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SiteExpensesManagement.App.Business.Abstracts;
@@ -12,6 +13,7 @@ using System.Linq;
 
 namespace SiteExpensesManagement.App.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CarsController : Controller
     {
         private readonly ICarService _carService;
