@@ -22,21 +22,38 @@
             </div>
             <div class="form-group">
                 <label asp-for="Target">Ekleme Yöntemi</label>
-                <select asp-for="Target" asp-items="Html.GetEnumSelectList<Targets>()" class="form-control">
+                <select asp-for="Target" id="targets" onchange="targetChanged(this)" asp-items="Html.GetEnumSelectList<Targets>()" class="form-control">
                 </select>  
                 <span asp-validation-for="Target" class="text-danger"></span>  
             </div>
-            <div class="form-group">
+            <div class="form-group" id="apartment">
                 <label asp-for="ApartmentNo">Apartman Numarası</label>
-                <input type="number" asp-for="ApartmentNo" class="form-control"/>
+                <input type="number" id="apartmentNo" asp-for="ApartmentNo" class="form-control"/>
                 <span asp-validation-for="ApartmentNo" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="blocks">
                 <label asp-for="Block">Blok</label>
-                <select asp-for="Block" asp-items="Html.GetEnumSelectList<Blocks>()" class="form-control">
+                <select asp-for="Block" id="blocks" asp-items="Html.GetEnumSelectList<Blocks>()" class="form-control">
                 </select>  
                 <span asp-validation-for="Block" class="text-danger"></span>  
             </div><button type="submit" class="btn btn-primary">Oluştur</button>
         </form>
     </div>
 </div>
+<script>
+    function targetChanged(list){
+        
+        if(list.options[list.selectedIndex].text == "Daire"){
+            document.getElementById("apartment").style.visibility = "visible"
+            document.getElementById("blocks").style.visibility = "hidden"
+        }
+        if(list.options[list.selectedIndex].text == "Blok"){
+            document.getElementById("apartment").style.visibility = "hidden"
+            document.getElementById("blocks").style.visibility = "visible"
+        }
+        if(list.options[list.selectedIndex].text == "Hepsi"){
+            document.getElementById("apartment").style.visibility = "hidden"
+            document.getElementById("blocks").style.visibility = "hidden"
+        }
+    }
+</script>
