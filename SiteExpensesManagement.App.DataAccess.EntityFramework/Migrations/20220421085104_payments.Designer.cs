@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SiteExpensesManagement.App.DataAccess.EntityFramework;
 
 namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220421085104_payments")]
+    partial class payments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -331,7 +333,10 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("UserId")
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -339,7 +344,7 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Migrations
                     b.HasIndex("BillId")
                         .IsUnique();
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("BillPayments");
                 });
@@ -424,7 +429,10 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("UserId")
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -432,7 +440,7 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Migrations
                     b.HasIndex("DuesId")
                         .IsUnique();
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("DuesPayments");
                 });
@@ -580,7 +588,7 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Migrations
 
                     b.HasOne("SiteExpensesManagement.App.Domain.Entities.ApplicationUser", "User")
                         .WithMany("BillPayments")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("SiteExpensesManagement.App.Domain.Entities.Car", b =>
@@ -609,7 +617,7 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Migrations
 
                     b.HasOne("SiteExpensesManagement.App.Domain.Entities.ApplicationUser", "User")
                         .WithMany("DuesPayments")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("SiteExpensesManagement.App.Domain.Entities.Message", b =>

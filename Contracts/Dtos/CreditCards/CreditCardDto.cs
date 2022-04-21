@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SiteExpensesManagement.App.Domain.Entities
+namespace SiteExpensesManagement.App.Contracts.Dtos.CreditCards
 {
-    public class CreditCard
+    public class CreditCardDto
     {
+        public decimal Price { get; set; }
         public string NameOnCard { get; set; }
         public string CardNumber { get; set; }
         public byte ExpiryMonth { get; set; }

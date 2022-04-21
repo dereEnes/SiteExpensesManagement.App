@@ -36,7 +36,7 @@ namespace SiteExpensesManagement.App.Controllers
             var result = _duesService.GetAll().Data;
             return View(result);
         }
-
+        [Authorize(Roles ="Basic")]
         public IActionResult ApartmentDues()
         {
             var user = _userManager.GetUserId(User);
@@ -62,6 +62,7 @@ namespace SiteExpensesManagement.App.Controllers
             var result = _duesService.Add(duesForAddDto);
             return RedirectToAction("Index");
         }
+        [Authorize(Roles = "Basic")]
         [HttpGet]
         public IActionResult Pay(int id)
         {
@@ -78,16 +79,24 @@ namespace SiteExpensesManagement.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Pay([FromForm] PaymentForDuesDto paymentForDuesDto)
         {
+            paymentForDuesDto.UserId = _userManager.GetUserId(User);
+            paymentForDuesDto.CreditCard.CardNumber = "1111111111111111";
+            paymentForDuesDto.CreditCard.Cvv = 123;
+            paymentForDuesDto.CreditCard.ExpiryMonth = 12;
+            paymentForDuesDto.CreditCard.ExpiryYear = 2222;
+            paymentForDuesDto.CreditCard.NameOnCard = "enes dere";
+
+            var result = await _paymentService.Add(paymentForDuesDto);
             if (!ModelState.IsValid)
             {
                 ViewBag.Card = GetUserCards().Result;
                 ViewBag.Dues = _duesService.GetById(paymentForDuesDto.DuesId);
                 return View(paymentForDuesDto);
             }
-
-            var result = await _paymentService.Add(paymentForDuesDto);
+            paymentForDuesDto.UserId = _userManager.GetUserId(User);
             return RedirectToAction("Index");
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             return View();

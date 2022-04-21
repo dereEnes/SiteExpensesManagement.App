@@ -15,5 +15,6 @@ namespace SiteExpensesManagement.App.Domain.Entities
         public DateTime ExpiryDate { get; set; }
         public short Year { get; set; }
         public bool IsPayed { get; set; }
+        public BillPayment BillPayment { get; set; }
     }
 }

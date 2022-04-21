@@ -16,6 +16,10 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations
                 .WithMany(a => a.Dues)
                 .HasForeignKey(b => b.ApartmentId);
 
+            builder.HasOne<DuesPayment>(a => a.DuesPayment)
+                .WithOne(r => r.Dues)
+                .HasForeignKey<DuesPayment>(r => r.DuesId);
+
             builder.Property(d => d.IsPayed).HasDefaultValue(false);
             builder.Property(d => d.Price).HasColumnType("decimal(18,2)");
         }

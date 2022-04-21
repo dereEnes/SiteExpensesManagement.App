@@ -13,5 +13,6 @@ namespace SiteExpensesManagement.App.Domain.Entities
         public Months Month { get; set; }
         public short Year { get; set; }
         public bool IsPayed { get; set; }
+        public DuesPayment DuesPayment { get; set; }
     }
 }

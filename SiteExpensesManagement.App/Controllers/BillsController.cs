@@ -1,4 +1,5 @@
 ﻿using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +35,7 @@ namespace SiteExpensesManagement.App.Controllers
         {
             return View(_billService.GetAll());
         }
-
+        [Authorize(Roles = "Basic")]
         public IActionResult ApartmentBills()
         {
             string userId = _userManager.GetUserId(User);
@@ -46,7 +47,7 @@ namespace SiteExpensesManagement.App.Controllers
         {
             return View();
         }
-        
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(BillForAddDto billForAddDto)
@@ -58,6 +59,7 @@ namespace SiteExpensesManagement.App.Controllers
             var result = _billService.Add(billForAddDto);
             return RedirectToAction("Index");
         }
+        [Authorize(Roles = "Basic")]
         [HttpGet]
         public IActionResult Pay(int id)
         {
@@ -74,6 +76,14 @@ namespace SiteExpensesManagement.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Pay([FromForm]PaymentForBillDto paymentForAddDto)
         {
+            paymentForAddDto.UserId = _userManager.GetUserId(User);
+            paymentForAddDto.CreditCard.CardNumber = "1111111111111111";
+            paymentForAddDto.CreditCard.Cvv = 123;
+            paymentForAddDto.CreditCard.ExpiryMonth = 12;
+            paymentForAddDto.CreditCard.ExpiryYear = 2222;
+            paymentForAddDto.CreditCard.NameOnCard = "enes dere";
+
+            var result = await _paymentService.Add(paymentForAddDto);
             if (!ModelState.IsValid)
             {
                 ViewBag.Card = GetUserCards().Result;
@@ -81,10 +91,9 @@ namespace SiteExpensesManagement.App.Controllers
                 return View(paymentForAddDto);
             }
 
-            var result = await _paymentService.Add(paymentForAddDto);
             return RedirectToAction("Index");
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             return View();

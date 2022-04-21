@@ -14,6 +14,8 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework
         DbSet<Dues> Dues { get; set; }
         DbSet<RoomType> RoomTypes { get; set; }
         DbSet<Message> Messages { get; set; }
+        DbSet<BillPayment> BillPayments { get; set; }
+        DbSet<DuesPayment> DuesPayments { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -27,6 +29,7 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework
             builder.ApplyConfiguration(new DuesConfiguration());
             builder.ApplyConfiguration(new RoomTypeConfiguration());
             builder.ApplyConfiguration(new MessageConfiguration());
+
 
             builder.HasDefaultSchema("Identity");
             

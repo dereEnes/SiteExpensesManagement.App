@@ -10,8 +10,8 @@ namespace SiteExpensesManagement.App.Business.Abstracts
 {
     public interface IPaymentService
     {
-        Task<List<CreditCard>> Add(PaymentForBillDto paymentForAddDto);
-        Task<List<CreditCard>> Add(PaymentForDuesDto paymentForAddDto);
+        Task<IResult> Add(PaymentForBillDto paymentForAddDto);
+        Task<IResult> Add(PaymentForDuesDto paymentForAddDto);
         Task<CreditCard> GetUserCard(string id);
     }
 }
