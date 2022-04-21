@@ -20,7 +20,6 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations
                 .WithOne(r => r.Dues)
                 .HasForeignKey<DuesPayment>(r => r.DuesId);
 
-            builder.Property(d => d.IsPayed).HasDefaultValue(false);
             builder.Property(d => d.Price).HasColumnType("decimal(18,2)");
         }
     }

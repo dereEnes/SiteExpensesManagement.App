@@ -28,6 +28,7 @@ namespace SiteExpensesManagement.App.Business.Validations.FluentValidation.Payme
                 .NotEmpty()
                 .WithMessage("Son kullanma yılı boş girilemez")
                 .GreaterThanOrEqualTo(((short)DateTime.Today.Year))
+                .LessThanOrEqualTo(((short)DateTime.Today.AddYears(3).Year))
                 .WithMessage("Kart son kullanma yılı geçersiz!");
 
             RuleFor(x => x.CreditCard.NameOnCard)

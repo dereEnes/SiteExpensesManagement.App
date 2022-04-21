@@ -22,7 +22,6 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations
                 .WithOne(r => r.Bill)
                 .HasForeignKey<BillPayment>(r => r.BillId);
 
-            builder.Property(b => b.IsPayed).HasDefaultValue(false);
             builder.Property(b => b.Price).HasColumnType("decimal(18,2)");
         }
     }

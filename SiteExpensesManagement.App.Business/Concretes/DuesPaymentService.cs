@@ -11,15 +11,18 @@ namespace SiteExpensesManagement.App.Business.Concretes
     {
         private readonly IRepository<DuesPayment> _repository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IBillService _billService;
 
-        public DuesPaymentService(IRepository<DuesPayment> repository, IUnitOfWork unitOfWork)
+        public DuesPaymentService(IRepository<DuesPayment> repository, IUnitOfWork unitOfWork, IBillService billService)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
+            _billService = billService;
         }
         public void Add(DuesPayment billPayment)
         {
             _repository.Add(billPayment);
+            _billService.UpdateBillAsPaid(billPayment.DuesId);
             _unitOfWork.Commit();
         }
 

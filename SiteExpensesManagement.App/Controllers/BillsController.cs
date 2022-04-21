@@ -63,7 +63,7 @@ namespace SiteExpensesManagement.App.Controllers
         [HttpGet]
         public IActionResult Pay(int id)
         {
-            ViewBag.Card = GetUserCards().Result;
+            //ViewBag.Card = GetUserCards().Result;
             ViewBag.Bill = _billService.GetById(id);
             return View();
         }
@@ -76,22 +76,15 @@ namespace SiteExpensesManagement.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Pay([FromForm]PaymentForBillDto paymentForAddDto)
         {
-            paymentForAddDto.UserId = _userManager.GetUserId(User);
-            paymentForAddDto.CreditCard.CardNumber = "1111111111111111";
-            paymentForAddDto.CreditCard.Cvv = 123;
-            paymentForAddDto.CreditCard.ExpiryMonth = 12;
-            paymentForAddDto.CreditCard.ExpiryYear = 2222;
-            paymentForAddDto.CreditCard.NameOnCard = "enes dere";
-
-            var result = await _paymentService.Add(paymentForAddDto);
             if (!ModelState.IsValid)
             {
-                ViewBag.Card = GetUserCards().Result;
+              //  ViewBag.Card = GetUserCards().Result;
                 ViewBag.Bill = _billService.GetById(paymentForAddDto.BillId);
                 return View(paymentForAddDto);
             }
-
-            return RedirectToAction("Index");
+            paymentForAddDto.UserId = _userManager.GetUserId(User);
+            var result = await _paymentService.Add(paymentForAddDto);
+            return RedirectToAction("ApartmentBills");
         }
         public IActionResult PaidBills()
         {

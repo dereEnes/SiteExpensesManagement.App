@@ -21,30 +21,32 @@ namespace SiteExpensesManagement.App.Business.Concretes
         private readonly IBillPaymentService _billPaymentService;
         private readonly IDuesPaymentService _duesPaymentService;
 
-        public PaymentService(IHttpClientFactory httpClientFactory, IUnitOfWork unitOfWork)
+        public PaymentService(IHttpClientFactory httpClientFactory, IUnitOfWork unitOfWork, IBillPaymentService billPaymentService, IDuesPaymentService duesPaymentService)
         {
             _httpClient = httpClientFactory.CreateClient();
             _httpClient.BaseAddress = new Uri("https://localhost:44326");
             _httpClient.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/json"));
             _unitOfWork = unitOfWork;
+            _billPaymentService = billPaymentService;
+            _duesPaymentService = duesPaymentService;
         }
 
         public async Task<IResult> Add(PaymentForBillDto paymentForAddDto)
         {
-            
+            paymentForAddDto.CreditCard.UserId = paymentForAddDto.UserId;
             var card = new PaymentDto()
             {
                 CreditCardInfo = paymentForAddDto.CreditCard,
                 Price = paymentForAddDto.Amount
             };
-            var url = "https://localhost:44326/api/payments/";
+            var url = "https://localhost:44326/api/payments";
             var json = JsonConvert.SerializeObject(card);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync(url, data);
             var resultJson =await response.Content.ReadAsStringAsync();
 
-            if (response.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode)
             {
                 var paymentToAdd = new BillPayment
                 {
@@ -60,22 +62,19 @@ namespace SiteExpensesManagement.App.Business.Concretes
         }
         public async Task<IResult> Add(PaymentForDuesDto paymentForAddDto)
         {
-            var card = new CreditCardDto()
+            paymentForAddDto.CreditCard.UserId = paymentForAddDto.UserId;
+            var card = new PaymentDto()
             {
-                Price = paymentForAddDto.Amount,
-                CardNumber = paymentForAddDto.CreditCard.CardNumber,
-                NameOnCard = paymentForAddDto.CreditCard.NameOnCard,
-                ExpiryMonth = paymentForAddDto.CreditCard.ExpiryMonth,
-                ExpiryYear = paymentForAddDto.CreditCard.ExpiryYear,
-                Cvv = paymentForAddDto.CreditCard.Cvv
+                CreditCardInfo = paymentForAddDto.CreditCard,
+                Price = paymentForAddDto.Amount
             };
-            var url = "https://localhost:44326/api/creditCards";
+            var url = "https://localhost:44326/api/payments";
             var json = JsonConvert.SerializeObject(card);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync(url, data);
             var resultJson = await response.Content.ReadAsStringAsync();
 
-            if (response.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode)
             {
                 var paymentToAdd = new DuesPayment
                 {

@@ -17,6 +17,8 @@
     <Compile Remove="Migrations\20220418112100_valueGEnertedOnAdd, changing default schema.Designer.cs" />
     <Compile Remove="Migrations\20220421084904_payments.cs" />
     <Compile Remove="Migrations\20220421084904_payments.Designer.cs" />
+    <Compile Remove="Migrations\20220421144803_bill and dues default value removed.cs" />
+    <Compile Remove="Migrations\20220421144803_bill and dues default value removed.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

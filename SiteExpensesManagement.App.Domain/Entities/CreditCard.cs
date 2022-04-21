@@ -6,6 +6,7 @@ namespace SiteExpensesManagement.App.Domain.Entities
 {
     public class CreditCard
     {
+        public string UserId { get; set; }
         public string NameOnCard { get; set; }
         public string CardNumber { get; set; }
         public byte ExpiryMonth { get; set; }
