@@ -4,6 +4,9 @@ dereEnes/SiteExpensesManagement.App
 # PatikaDev-Logo-Net-Bootcamp Graduation Project
 Aparments management app with .Net Core 3.1 MVC & API. API only for payment. Rest of the thing in .Net core web app. There are pages; CRUD for apartments,cars, rooms, bills and dues also there is a page for sending messages to admin.
 
+### This is my UML class diagram
+![uml](https://user-images.githubusercontent.com/78616137/164477938-713c0816-6805-427b-b44a-98b6d0c379b3.JPG)
+
 ### Topics
 * FluentValidation
 * AutoMapper
