@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations;
 using SiteExpensesManagement.App.Domain.Entities;
-using static SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations.BillConfiguration;
 
 namespace SiteExpensesManagement.App.DataAccess.EntityFramework
 {
@@ -30,8 +29,8 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework
             builder.ApplyConfiguration(new DuesConfiguration());
             builder.ApplyConfiguration(new RoomTypeConfiguration());
             builder.ApplyConfiguration(new MessageConfiguration());
-            //builder.ApplyConfiguration(new BillPaymentConfiguration());
-            //builder.ApplyConfiguration(new DuesPaymentConfiguration());
+          //  builder.ApplyConfiguration(new BillPaymentConfiguration());
+          //  builder.ApplyConfiguration(new DuesPaymentConfiguration());
 
             builder.HasDefaultSchema("Identity");
             
@@ -41,6 +40,7 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework
                 entity.Property<string>(x => x.FirstName).HasMaxLength(30);
                 entity.Property<string>(x => x.LastName).HasMaxLength(30);
                 entity.Property<string>(x => x.IdentityNumber).HasMaxLength(11);
+
             });
             
             builder.Entity<IdentityRole>(entity =>

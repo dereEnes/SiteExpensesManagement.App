@@ -4,8 +4,6 @@ using SiteExpensesManagement.App.Domain.Entities;
 
 namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations
 {
-    public partial class BillConfiguration
-    {
         public class DuesPaymentConfiguration : IEntityTypeConfiguration<DuesPayment>
         {
             public void Configure(EntityTypeBuilder<DuesPayment> builder)
@@ -19,8 +17,7 @@ namespace SiteExpensesManagement.App.DataAccess.EntityFramework.Configurations
                     .WithMany(a => a.DuesPayments)
                     .HasForeignKey(b => b.UserId);
 
-                
+
             }
         }
-    }
 }
