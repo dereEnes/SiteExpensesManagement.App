@@ -101,6 +101,11 @@ namespace SiteExpensesManagement.App.Controllers
         {
             return View();
         }
-
+        [Authorize(Roles = "Admin")]
+        public IActionResult PaidDues()
+        {
+            var result = _duesService.Get(x => x.IsPayed == true);
+            return View(result);
+        }
     }
 }

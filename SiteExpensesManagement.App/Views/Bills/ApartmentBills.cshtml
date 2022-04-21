@@ -21,7 +21,7 @@
             <td>@bill.Month.ToString()</td>
             <td>@bill.Year</td>
             <td>@bill.Price <i class="fa-solid fa-turkish-lira-sign"></i></td>
-                @if (@bill.ExpiryDate > DateTime.Now)
+                @if (@bill.ExpiryDate < DateTime.Now && @bill.IsPayed == false)
                 {
                     <td class ="text-danger">@bill.ExpiryDate.ToString("dd:MM:yyyy")</td>
                 }

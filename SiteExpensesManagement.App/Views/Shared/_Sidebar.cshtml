@@ -66,7 +66,9 @@
                         <li>
                             <a asp-action="Create" asp-controller="Bills">Ekle</a>
                         </li>
-                        
+                        <li>
+                            <a asp-action="PaidBills" asp-controller="Bills">Ödenmiş</a>
+                        </li>
                     </ul>
                 </li>
                 <li>
@@ -77,6 +79,9 @@
                         </li>
                         <li>
                             <a asp-action="Create" asp-controller="Dues">Ekle</a>
+                        </li>
+                        <li>
+                            <a asp-action="PaidDues" asp-controller="Dues">Ödenmiş</a>
                         </li>
                         
                     </ul>
@@ -98,27 +103,31 @@
                 
                 
                 <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Faturalar</a>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle btn-dark">Faturalar</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                         
                         <li>
                             <a asp-action="ApartmentBills" asp-controller="Bills">Faturalarım</a>
                         </li>
-                        
+                        <li>
+                            <a asp-action="UserBillPayments" asp-controller="Payments">Ödenmiş</a>
+                        </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle btn-dark">Aidatlar</a>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Aidatlar</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                        
                         <li>
                             <a asp-action="ApartmentDues" asp-controller="Dues">Aidatlarım</a>
                         </li>
-                        
+                        <li>
+                            <a asp-action="UserDuesPayments" asp-controller="Payments">Ödenmiş</a>
+                        </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Mesaj</a>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle btn-dark">Mesaj</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                         
                         <li>

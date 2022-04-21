@@ -17,15 +17,16 @@ namespace SiteExpensesManagement.App.Business.Concretes
     public class PaymentService : IPaymentService
     {
         private readonly HttpClient _httpClient;
-        private readonly IRepository<BillPayment> _repository;
         private readonly IUnitOfWork _unitOfWork;
-        public PaymentService(IHttpClientFactory httpClientFactory, IRepository<BillPayment> repository, IUnitOfWork unitOfWork)
+        private readonly IBillPaymentService _billPaymentService;
+        private readonly IDuesPaymentService _duesPaymentService;
+
+        public PaymentService(IHttpClientFactory httpClientFactory, IUnitOfWork unitOfWork)
         {
             _httpClient = httpClientFactory.CreateClient();
             _httpClient.BaseAddress = new Uri("https://localhost:44326");
             _httpClient.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/json"));
-            _repository = repository;
             _unitOfWork = unitOfWork;
         }
 
@@ -34,7 +35,8 @@ namespace SiteExpensesManagement.App.Business.Concretes
             
             var card = new PaymentDto()
             {
-                
+                CreditCardInfo = paymentForAddDto.CreditCard,
+                Price = paymentForAddDto.Amount
             };
             var url = "https://localhost:44326/api/payments/";
             var json = JsonConvert.SerializeObject(card);
@@ -42,9 +44,7 @@ namespace SiteExpensesManagement.App.Business.Concretes
             var response = await _httpClient.PostAsync(url, data);
             var resultJson =await response.Content.ReadAsStringAsync();
 
-            var result = JsonConvert.DeserializeObject<SuccessResult>(resultJson);
-
-            if (result.Success)
+            if (response.IsSuccessStatusCode)
             {
                 var paymentToAdd = new BillPayment
                 {
@@ -52,8 +52,9 @@ namespace SiteExpensesManagement.App.Business.Concretes
                     CreatedAt = DateTime.Now,
                     UserId = paymentForAddDto.UserId
                 };
-                _repository.Add(paymentToAdd);
+                _billPaymentService.Add(paymentToAdd);
             }
+            //var result = JsonConvert.DeserializeObject<SuccessResult>(resultJson);
 
             return new SuccessResult();
         }
@@ -74,8 +75,19 @@ namespace SiteExpensesManagement.App.Business.Concretes
             var response = await _httpClient.PostAsync(url, data);
             var resultJson = await response.Content.ReadAsStringAsync();
 
-            var result = JsonConvert.DeserializeObject<SuccessResult>(resultJson);
-            return result;
+            if (response.IsSuccessStatusCode)
+            {
+                var paymentToAdd = new DuesPayment
+                {
+                    DuesId = paymentForAddDto.DuesId,
+                    CreatedAt = DateTime.Now,
+                    UserId = paymentForAddDto.UserId
+                };
+                _duesPaymentService.Add(paymentToAdd);
+
+            }
+            // var result = JsonConvert.DeserializeObject<SuccessResult>(resultJson);
+            return new SuccessResult("Ödeme gerçekleştirildi");
         }
 
         public async Task<CreditCard> GetUserCard(string id)

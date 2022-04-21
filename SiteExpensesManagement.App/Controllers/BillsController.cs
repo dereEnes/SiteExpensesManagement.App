@@ -93,24 +93,10 @@ namespace SiteExpensesManagement.App.Controllers
 
             return RedirectToAction("Index");
         }
-        [Authorize(Roles = "Admin")]
-        public IActionResult Delete(int id)
+        public IActionResult PaidBills()
         {
-            return View();
-        }
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var result = _billService.Get(x => x.IsPayed == true);
+            return View(result);
         }
     }
 }

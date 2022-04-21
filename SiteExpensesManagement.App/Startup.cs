@@ -79,7 +79,8 @@ namespace SiteExpensesManagement.App
             services.AddTransient<IBillService, BillService>();
             services.AddTransient<IDuesService, DuesService>();
             services.AddTransient<IPaymentService, PaymentService>();
-
+            services.AddTransient<IBillPaymentService, BillPaymentService>();
+            services.AddTransient<IDuesPaymentService, DuesPaymentService>();
 
             services.AddHttpClient();
             services.AddCors(options =>

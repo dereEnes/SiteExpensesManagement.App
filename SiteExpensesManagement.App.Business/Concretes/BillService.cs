@@ -12,6 +12,7 @@ using SiteExpensesManagement.App.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace SiteExpensesManagement.App.Business.Concretes
@@ -159,6 +160,17 @@ namespace SiteExpensesManagement.App.Business.Concretes
                 return false;
             }
             return true;
+        }
+
+        public void UpdateBillAsPaid(int id)
+        {
+            var result = _repository.GetById(id);
+            result.IsPayed = true;
+            _unitOfWork.Commit();
+        }
+        public List<BillViewModel> Get(Expression<Func<Bill, bool>> filter)
+        {
+            return _mapper.Map<List<BillViewModel>>(_repository.Get(filter).Include(x => x.Apartment).ToList());
         }
     }
 }
