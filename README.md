@@ -35,9 +35,13 @@ Register
 ![addDues2](https://user-images.githubusercontent.com/78616137/164438406-36cd9a7b-7876-4d0d-8c1c-7518cb3accf5.JPG)
 ![addDues3](https://user-images.githubusercontent.com/78616137/164438443-0f819cc4-20f4-4d01-9d34-4626a3625bd1.JPG)
 ![dues](https://user-images.githubusercontent.com/78616137/164439485-7c4a48ce-82fa-4acb-ab28-d743958b80ed.JPG)
-### Then users can pay the dues,bills with clicking the "Öde" button,
+### Then users can pay the dues,bills with clicking the "Öde" button. <hr/>
 ![userBills](https://user-images.githubusercontent.com/78616137/164439988-6ae15e12-626c-4b6c-9ee0-583cd57477c5.JPG)
-### The "Öde" button redirect user to this page, and here user can make an payment with his/her credit card. The card info showed below comes from API according the userId
+### The "Öde" button redirect user to this page, and here user can make an payment with his/her credit card. The card info showed below comes from API according the userId <hr/>
 ![paymentdetail](https://user-images.githubusercontent.com/78616137/164440418-fc2dcf70-a8c2-4601-bb0b-029c7e1cbcdc.JPG)
+#### User also can send message to admin, show forwarded Messages, can see if message has been read by the admin.
+![sendmessage](https://user-images.githubusercontent.com/78616137/164444857-a99fb972-2651-4ff1-ba7c-bca8b1f1599e.JPG)
+![userMessages](https://user-images.githubusercontent.com/78616137/164445200-395d6470-4d8b-4513-80b2-9c9cdaa94f1a.JPG)
+![messageDetail](https://user-images.githubusercontent.com/78616137/164445253-402c04d6-4d7b-4688-bfe3-beedb9075869.JPG)
 
 
