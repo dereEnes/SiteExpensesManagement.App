@@ -12,7 +12,13 @@ namespace SiteExpensesManagement.App.Business.Mappers.AutoMapper
             CreateMap<ApartmentForCreateDto, Apartment>();
 
             CreateMap<Apartment, ApartmentViewModel>()
-                .ForMember(dest => dest.Block, opt => opt.MapFrom(src => src.Block.ToString()));
+                .ForMember(dest => dest.Block, opt => opt.MapFrom(src => src.Block.ToString()))
+                .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.User.FirstName))
+                .ForMember(dest => dest.lastName, opt => opt.MapFrom(src => src.User.LastName))
+                .ForMember(dest => dest.RoomType, opt => opt.MapFrom(src => src.RoomType.CountOfRooms))
+                .ForMember(dest => dest.RoomTypeId, opt => opt.MapFrom(src => src.RoomType.Id))
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.User.Id));
+
 
             CreateMap<Apartment, ApartmentBillsDto>()
                 .ForMember(dest => dest.Bills, opt => opt.MapFrom(src => src.Bills))
@@ -23,6 +29,12 @@ namespace SiteExpensesManagement.App.Business.Mappers.AutoMapper
                 .ForMember(dest => dest.Dues, opt => opt.MapFrom(src => src.Dues))
                 .ForMember(dest => dest.Block, src => src.MapFrom(src => src.Block.ToString()))
                 .ForMember(dest => dest.User, src => src.MapFrom(src => src.User));
+
+            CreateMap<ApartmentForUpdateDto, Apartment>()
+                .ForMember(dest => dest.RoomTypeId, opt => opt.MapFrom(src => src.RoomTypeId))
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId));
+
+
         }
     }
 }

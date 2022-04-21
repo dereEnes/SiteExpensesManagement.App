@@ -21,10 +21,10 @@
          <tr>
             <td>@apartment.Id</td>
             <td>@apartment.Block</td>
-            <td>@apartment.RoomType.CountOfRooms</td>
+            <td>@apartment.RoomType</td>
             <td>@apartment.FloorNumber</td>
             <td>@apartment.ApartmentNo</td>
-            <td>@apartment.User.FirstName @apartment.User.LastName</td>
+            <td>@apartment.FirstName @apartment.lastName</td>
             <td><a asp-action="Edit" asp-route-id="@apartment.Id" class="btn btn-warning">Güncelle</a></td>
             <td><a asp-action="Delete" asp-route-id="@apartment.Id" class="btn btn-danger">Sil</a></td>
         </tr>   

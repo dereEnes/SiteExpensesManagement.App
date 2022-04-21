@@ -40,16 +40,7 @@ namespace SiteExpensesManagement.App.Controllers
                     Text = $"{u.FirstName} {u.LastName}"
                 }).ToList();
         }
-        public IActionResult Details(int id)
-        {
-            return View();
-        }
-
-        public IActionResult Create()
-        {
-            return View();
-        }
-
+    
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(IFormCollection collection)

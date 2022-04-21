@@ -93,16 +93,16 @@ namespace SiteExpensesManagement.App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, ApartmentForUpdateDto apartmentForUpdateDto)
+        public IActionResult Edit(ApartmentForUpdateDto apartmentForUpdateDto)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                ViewBag.Users = GetUsers();
+                ViewBag.RoomTypes = GetRoomTypes();
+                return View(apartmentForUpdateDto);
             }
-            catch
-            {
-                return View();
-            }
+            _apartmentService.Update(apartmentForUpdateDto);
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public IActionResult Delete(int id)

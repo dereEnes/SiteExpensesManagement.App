@@ -84,6 +84,7 @@ namespace SiteExpensesManagement.App.Business.Concretes
         public IResult Update(ApartmentForUpdateDto apartmentForCreateDto)
         {
             var result = _mapper.Map<Apartment>(apartmentForCreateDto);
+
             _repository.Update(result);
             _unitOfWork.Commit();
             return new SuccessResult("Apartman güncellendi");
