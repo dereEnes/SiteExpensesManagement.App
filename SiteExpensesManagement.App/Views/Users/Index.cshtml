@@ -1,0 +1,33 @@
+﻿@using SiteExpensesManagement.App.Domain.Entities
+@model List<ApplicationUser>
+
+<h1>Kişiler</h1>
+
+<table class="table table-striped table-active text-center">
+    <thead>
+        <tr>
+            <th>Ad</th>
+            <th>Soyad</th>
+            <th>Email</th>
+            <th>Telefon Numarası</th>
+            <th>Apartmant No</th>
+            <th>Güncelle</th>
+            <th>Sil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ApplicationUser user in Model)
+        {
+            <tr>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <td>@user.Email</td>
+                <td>@user.PhoneNumber</td>
+                <td>@user.Apartment.ApartmentNo</td>
+                <td><a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-warning">Detay</a></td>
+                <td><a asp-action="Delete" asp-route-id="@user.Id" class="btn btn-danger">Sil</a></td>
+        </tr>   
+        }
+    </tbody>
+    <tfoot></tfoot>
+</table>

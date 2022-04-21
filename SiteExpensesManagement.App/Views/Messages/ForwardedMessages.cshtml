@@ -27,10 +27,7 @@
             <td>@message.Header</td>
             <td>@message.Content.Substring(0,10)...</td>
             <td>
-                @if ( (DateTime.Now - message.CreatedAt).TotalDays < 7 && !message.HasRead)
-                {
-                    <i class="fa-brands fa-hacker-news w-25">eni</i>
-                }
+                
                 @message.CreatedAt.ToString("dd:MM:yyyy")
                 </td>
             <td><a asp-action="DetailsForSender" asp-route-id="@message.Id" class="btn btn-warning">Detay</a></td>

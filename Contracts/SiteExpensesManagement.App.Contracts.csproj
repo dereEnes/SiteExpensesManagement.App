@@ -8,4 +8,8 @@
     <ProjectReference Include="..\SiteExpensesManagement.App.Domain\SiteExpensesManagement.App.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModels\User\" />
+  </ItemGroup>
+
 </Project>

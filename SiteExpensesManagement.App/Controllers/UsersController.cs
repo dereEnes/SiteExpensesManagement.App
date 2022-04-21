@@ -1,26 +1,35 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SiteExpensesManagement.App.Contracts.Dtos.User;
+using SiteExpensesManagement.App.DataAccess.EntityFramework.Repository.Abstracts;
 using SiteExpensesManagement.App.Domain.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SiteExpensesManagement.App.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UsersController(UserManager<ApplicationUser> userManager)
+        public UsersController(UserManager<ApplicationUser> userManager, IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
+            _unitOfWork = unitOfWork;
         }
 
-        // GET: UsersController
         public IActionResult Index()
         {
-            return View();
+            return View( _userManager.Users
+                .Where(x=> x.IsDeleted == false)
+                .Include(x=> x.Apartment)
+                .ToList());
         }
         public List<UserForSelectItem> getUsers()
         {
@@ -31,19 +40,16 @@ namespace SiteExpensesManagement.App.Controllers
                     Text = $"{u.FirstName} {u.LastName}"
                 }).ToList();
         }
-        // GET: UsersController/Details/5
         public IActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: UsersController/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: UsersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(IFormCollection collection)
@@ -58,46 +64,43 @@ namespace SiteExpensesManagement.App.Controllers
             }
         }
 
-        // GET: UsersController/Edit/5
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(string id)
         {
-            return View();
+            return View(await _userManager.FindByIdAsync(id));
         }
 
-        // POST: UsersController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(ApplicationUser user)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                return View(user);
             }
-            catch
-            {
-                return View();
-            }
+            var result = await _userManager.FindByIdAsync(user.Id);
+            result.FirstName = user.FirstName;
+            result.LastName = user.LastName;
+            result.PhoneNumber = user.PhoneNumber;
+            result.Email = user.Email;
+            await _userManager.UpdateAsync(result);
+            Task.WaitAll();
+            _unitOfWork.Commit();
+            return RedirectToAction("Index");
         }
 
-        // GET: UsersController/Delete/5
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(string id)
         {
-            return View();
+            var user = await _userManager.FindByIdAsync(id);
+            if (!(user is null))
+            {
+                user.IsDeleted = true;
+                await _userManager.UpdateAsync(user);
+                Task.WaitAll();
+                _unitOfWork.Commit();
+            }
+            return RedirectToAction("Index");
         }
 
-        // POST: UsersController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
     }
 }

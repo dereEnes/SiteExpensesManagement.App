@@ -12,6 +12,7 @@ namespace SiteExpensesManagement.App.Domain.Entities
             Messages = new List<Message>();
             Cars = new List<Car>();
         }
+        public bool IsDeleted { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string IdentityNumber { get; set; }

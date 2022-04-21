@@ -3,11 +3,7 @@
 
 @if (User.IsInRole("Admin"))
         {
-            
-        }
-
-       
-        <nav id="sidebar">
+            <nav id="sidebar">
             <div class="sidebar-header">
                 <h3 class="mt-5 mb-2">Patika Evleri</h3>
             </div>
@@ -18,12 +14,11 @@
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Kişiler</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li>
-                            <a asp-area="Identity" asp-page="/Account/Register">Ekle</a>
+                            <a asp-action="Index" asp-controller="Users">Listele</a>
                         </li>
                         <li>
-                            <a href="#">Home 2</a>
+                            <a asp-area="Identity" asp-page="/Account/Register">Ekle</a>
                         </li>
-                        
                     </ul>
                 </li>
                 <li>
@@ -71,9 +66,6 @@
                         <li>
                             <a asp-action="Create" asp-controller="Bills">Ekle</a>
                         </li>
-                        <li>
-                            <a asp-action="ApartmentBills" asp-controller="Bills">Faturalarım</a>
-                        </li>
                         
                     </ul>
                 </li>
@@ -86,8 +78,54 @@
                         <li>
                             <a asp-action="Create" asp-controller="Dues">Ekle</a>
                         </li>
+                        
+                    </ul>
+                </li>
+               
+            </ul>
+        </nav>
+        }else if(User.IsInRole("Basic")){
+
+       
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3 class="mt-5 mb-2">Patika Evleri</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <p>Kategoriler</p>
+                
+                
+                
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Faturalar</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        
+                        <li>
+                            <a asp-action="ApartmentBills" asp-controller="Bills">Faturalarım</a>
+                        </li>
+                        
+                    </ul>
+                </li>
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle btn-dark">Aidatlar</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                       
                         <li>
                             <a asp-action="ApartmentDues" asp-controller="Dues">Aidatlarım</a>
+                        </li>
+                        
+                    </ul>
+                </li>
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Mesaj</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        
+                        <li>
+                            <a asp-action="ForwardedMessages" asp-controller="Messages">Mesajlarım</a>
+                        </li>
+                        <li>
+                            <a asp-action="Create" asp-controller="Messages">Oluştur</a>
                         </li>
                         
                     </ul>
@@ -104,3 +142,4 @@
 
         
 
+        }
