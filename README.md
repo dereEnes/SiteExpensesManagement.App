@@ -42,8 +42,11 @@ Register
 ![dues](https://user-images.githubusercontent.com/78616137/164439485-7c4a48ce-82fa-4acb-ab28-d743958b80ed.JPG)
 ### Then users can pay the dues,bills with clicking the "Öde" button. <hr/>
 ![userBills](https://user-images.githubusercontent.com/78616137/164439988-6ae15e12-626c-4b6c-9ee0-583cd57477c5.JPG)
-### The "Öde" button redirects user to this page, and here user can make an payment with his/her credit card. The card info showed below comes from API according the userId <hr/>
-![ödeme ekranı](https://user-images.githubusercontent.com/78616137/164679721-1832544e-ccc4-4d92-b82c-67beb06c10b6.JPG)
+
+### The "Öde" button redirects user to this page, and here user can make an payment with his/her credit card. The card info showed below comes from API according the userId, Also User can pay with his card that already saved in server. <hr/>
+![ödeme ekranı](https://user-images.githubusercontent.com/78616137/164701867-052a588d-1b27-4124-ab64-41841db69ac8.JPG)
+
+
 ### And Users can see their paid dues and bills
 
 ![userpayments](https://user-images.githubusercontent.com/78616137/164471994-12bf3255-ba6d-4768-aef1-ffa35d98ea39.JPG)
