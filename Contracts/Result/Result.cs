@@ -15,5 +15,9 @@
         {
             this.Success = success;
         }
+        public Result()
+        {
+
+        }
     }
 }

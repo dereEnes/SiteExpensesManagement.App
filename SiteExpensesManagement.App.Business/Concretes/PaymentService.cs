@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using AutoMapper;
+using Newtonsoft.Json;
 using SiteExpensesManagement.App.Business.Abstracts;
 using SiteExpensesManagement.App.Contracts.Dtos.CreditCards;
 using SiteExpensesManagement.App.Contracts.Dtos.Payments;
@@ -20,8 +21,13 @@ namespace SiteExpensesManagement.App.Business.Concretes
         private readonly IUnitOfWork _unitOfWork;
         private readonly IBillPaymentService _billPaymentService;
         private readonly IDuesPaymentService _duesPaymentService;
+        private readonly IMapper _mapper;
 
-        public PaymentService(IHttpClientFactory httpClientFactory, IUnitOfWork unitOfWork, IBillPaymentService billPaymentService, IDuesPaymentService duesPaymentService)
+        public PaymentService(IHttpClientFactory httpClientFactory,
+            IUnitOfWork unitOfWork,
+            IBillPaymentService billPaymentService,
+            IDuesPaymentService duesPaymentService,
+            IMapper mapper)
         {
             _httpClient = httpClientFactory.CreateClient();
             _httpClient.BaseAddress = new Uri("https://localhost:44326");
@@ -30,24 +36,21 @@ namespace SiteExpensesManagement.App.Business.Concretes
             _unitOfWork = unitOfWork;
             _billPaymentService = billPaymentService;
             _duesPaymentService = duesPaymentService;
+            _mapper = mapper;
         }
 
         public async Task<IResult> Add(PaymentForBillDto paymentForAddDto)
         {
-            paymentForAddDto.CreditCard.UserId = paymentForAddDto.UserId;
-            var card = new PaymentDto()
-            {
-                CreditCardInfo = paymentForAddDto.CreditCard,
-                Price = paymentForAddDto.Amount
-            };
+            var paymentDto = _mapper.Map<PaymentDto>(paymentForAddDto);
             var url = "https://localhost:44326/api/payments";
-            var json = JsonConvert.SerializeObject(card);
+            var json = JsonConvert.SerializeObject(paymentDto);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync(url, data);
             var resultJson =await response.Content.ReadAsStringAsync();
-
-            if (!response.IsSuccessStatusCode)
+            
+            if (response.IsSuccessStatusCode)
             {
+                var result = JsonConvert.DeserializeObject<Result>(resultJson);
                 var paymentToAdd = new BillPayment
                 {
                     BillId = paymentForAddDto.BillId,
@@ -56,25 +59,20 @@ namespace SiteExpensesManagement.App.Business.Concretes
                 };
                 _billPaymentService.Add(paymentToAdd);
             }
-            //var result = JsonConvert.DeserializeObject<SuccessResult>(resultJson);
+            
 
             return new SuccessResult();
         }
         public async Task<IResult> Add(PaymentForDuesDto paymentForAddDto)
         {
-            paymentForAddDto.CreditCard.UserId = paymentForAddDto.UserId;
-            var card = new PaymentDto()
-            {
-                CreditCardInfo = paymentForAddDto.CreditCard,
-                Price = paymentForAddDto.Amount
-            };
+            var paymentDto = _mapper.Map<PaymentDto>(paymentForAddDto);
             var url = "https://localhost:44326/api/payments";
-            var json = JsonConvert.SerializeObject(card);
+            var json = JsonConvert.SerializeObject(paymentDto);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync(url, data);
             var resultJson = await response.Content.ReadAsStringAsync();
 
-            if (!response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
                 var paymentToAdd = new DuesPayment
                 {
