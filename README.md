@@ -2,10 +2,12 @@
 dereEnes/SiteExpensesManagement.App
 ```
 # PatikaDev-Logo-Net-Bootcamp Graduation Project
-Aparments management app with .Net Core 3.1 MVC & API. API only for payment. Rest of the thing in .Net core web app. There are pages; CRUD for apartments,cars, rooms, bills and dues also there is a page for sending messages to admin.
+Aparments management app with .Net Core 3.1 MVC & API. API only for payment bring user credit card, add credit card info, check balance etc. Rest of the things in .Net core web app. There are a lot of pages; CRUD for apartments,cars, rooms, bills and dues also there is a page for sending messages to admin.
 
 ### This is my UML class diagram
-![uml](https://user-images.githubusercontent.com/78616137/164477938-713c0816-6805-427b-b44a-98b6d0c379b3.JPG)
+![uml](https://user-images.githubusercontent.com/78616137/164682631-64f86b6f-254d-4e90-ab0c-e1f0c65e5b8c.JPG)
+
+
 
 ### Topics
 * FluentValidation
@@ -42,20 +44,24 @@ Register
 ![userBills](https://user-images.githubusercontent.com/78616137/164439988-6ae15e12-626c-4b6c-9ee0-583cd57477c5.JPG)
 ### The "Öde" button redirects user to this page, and here user can make an payment with his/her credit card. The card info showed below comes from API according the userId <hr/>
 ![ödeme ekranı](https://user-images.githubusercontent.com/78616137/164679721-1832544e-ccc4-4d92-b82c-67beb06c10b6.JPG)
+### And Users can see their paid dues and bills
+
+![userpayments](https://user-images.githubusercontent.com/78616137/164471994-12bf3255-ba6d-4768-aef1-ffa35d98ea39.JPG)
 
 ### Here is the mongoDb side
 ![mongoDb](https://user-images.githubusercontent.com/78616137/164678859-fb194ab0-bbfd-4f57-a8bb-fb8c18c5e2de.JPG)
 
-#### User also can send message to admin, show forwarded Messages, can see if message has been read by the admin.<hr/>
+### User also can send message to admin, show forwarded Messages, can see if message has been read by the admin.<hr/>
 ![sendmessage](https://user-images.githubusercontent.com/78616137/164444857-a99fb972-2651-4ff1-ba7c-bca8b1f1599e.JPG)
-![userMessages](https://user-images.githubusercontent.com/78616137/164445200-395d6470-4d8b-4513-80b2-9c9cdaa94f1a.JPG)
+![mesajlarım](https://user-images.githubusercontent.com/78616137/164684385-64d304d1-de9a-41b1-9ba9-7aa453e5cd8a.JPG)
 ![messageDetail](https://user-images.githubusercontent.com/78616137/164445253-402c04d6-4d7b-4688-bfe3-beedb9075869.JPG)
+## These are the messages that comes from users
+
+![adminmesaj](https://user-images.githubusercontent.com/78616137/164685308-af3e988b-694b-49f6-9a37-c5a36a384afe.JPG)
+
 ### Admin Can Show users, Update users, Delete Users <hr/>
 
 ![listusers](https://user-images.githubusercontent.com/78616137/164453451-4a2437e6-a2c1-43ec-9a11-6a8d05e3d972.JPG)
 ![updateuser](https://user-images.githubusercontent.com/78616137/164453491-03736f90-2d34-475f-a807-6d88d6f61bca.JPG)
-### And Users can see their paid dues and bills
-
-![userpayments](https://user-images.githubusercontent.com/78616137/164471994-12bf3255-ba6d-4768-aef1-ffa35d98ea39.JPG)
 
 
