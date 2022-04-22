@@ -11,6 +11,7 @@ namespace SiteExpensesManagement.App.Contracts.Dtos.Payments
         public int BillId { get; set; }
         public CreditCard CreditCard { get; set; }
         public decimal Amount { get; set; }
+        public bool UseSavedCard { get; set; }
 
     }
 }

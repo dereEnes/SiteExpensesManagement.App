@@ -66,7 +66,7 @@ namespace SiteExpensesManagement.App.Controllers
         [HttpGet]
         public IActionResult Pay(int id)
         {
-         //   ViewBag.Card = GetUserCards().Result;
+            ViewBag.Card = GetUserCards().Result;
             ViewBag.Dues = _duesService.GetById(id).Data;
             return View();
         }
@@ -79,13 +79,20 @@ namespace SiteExpensesManagement.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Pay([FromForm] PaymentForDuesDto paymentForDuesDto)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid && !paymentForDuesDto.UseSavedCard)
             {
-               // ViewBag.Card = GetUserCards().Result;
+                ViewBag.Card = GetUserCards().Result;
                 ViewBag.Dues = _duesService.GetById(paymentForDuesDto.DuesId);
                 return View(paymentForDuesDto);
             }
+            var card = GetUserCards().Result;
+            paymentForDuesDto.CreditCard.CardNumber = card.CardNumber;
+            paymentForDuesDto.CreditCard.Cvv = card.Cvv;
+            paymentForDuesDto.CreditCard.ExpiryMonth = card.ExpiryMonth;
+            paymentForDuesDto.CreditCard.ExpiryYear = card.ExpiryYear;
+            paymentForDuesDto.CreditCard.NameOnCard = card.NameOnCard;
             paymentForDuesDto.UserId = _userManager.GetUserId(User);
+
             var result = await _paymentService.Add(paymentForDuesDto);
             
             return RedirectToAction("ApartmentDues");

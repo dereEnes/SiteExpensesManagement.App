@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" src="~/css/payment.css"/>
 <div class="row">
-            <table class="table table-striped table-dark text-center">
+            <table class="table table-striped table-success text-center">
     <thead>
         <tr>
             <th>Apartman Numarası</th>
@@ -24,7 +24,7 @@
             <td>@ViewBag.Bill.Year</td>
             <td>@ViewBag.Bill.Month.ToString()</td>
             <td>@ViewBag.Bill.Price <i class="fa-solid fa-turkish-lira-sign"></i></td>
-                @if (@ViewBag.Bill.ExpiryDate > DateTime.Now)
+                @if (@ViewBag.Bill.ExpiryDate < DateTime.Now)
                 {
                     <td class ="text-danger">@ViewBag.Bill.ExpiryDate.ToString("dd:MM:yyyy")</td>
                 }
@@ -32,7 +32,7 @@
                 {
                     <td>@ViewBag.Bill.ExpiryDate.ToString("dd:MM:yyyy")</td>
                 } 
-                <td class="text-warning">ÖDENMEDİ</td>
+                <td class="text-danger">ÖDENMEDİ</td>
             </tr>   
     </tbody>
     <tfoot></tfoot>
@@ -90,7 +90,7 @@
             <div class="col-12">
                 @if(!(ViewBag.Card is null)){
                     <p>Kayıtlı Kartınız</p>
-                         <input type="radio"  text="wdwa"/> @ViewBag.Card.CardNumber
+                         <input type="checkbox" asp-for="UseSavedCard" /> @ViewBag.Card.CardNumber
                         }
                 </div>
         </div>

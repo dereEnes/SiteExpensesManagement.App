@@ -41,6 +41,7 @@ namespace SiteExpensesManagement.App.Business.Concretes
 
         public async Task<IResult> Add(PaymentForBillDto paymentForAddDto)
         {
+            try { 
             var paymentDto = _mapper.Map<PaymentDto>(paymentForAddDto);
             var url = "https://localhost:44326/api/payments";
             var json = JsonConvert.SerializeObject(paymentDto);
@@ -58,40 +59,64 @@ namespace SiteExpensesManagement.App.Business.Concretes
                     UserId = paymentForAddDto.UserId
                 };
                 _billPaymentService.Add(paymentToAdd);
+                }
+                else
+                {
+                    return new ErrorResult();
+                }
+            }catch(Exception e)
+            {
+                return new ErrorResult("Başarısız" + e.Message.ToString());
             }
-            
 
-            return new SuccessResult();
+            return new SuccessResult("Başarılı");
         }
         public async Task<IResult> Add(PaymentForDuesDto paymentForAddDto)
         {
-            var paymentDto = _mapper.Map<PaymentDto>(paymentForAddDto);
-            var url = "https://localhost:44326/api/payments";
-            var json = JsonConvert.SerializeObject(paymentDto);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync(url, data);
-            var resultJson = await response.Content.ReadAsStringAsync();
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var paymentToAdd = new DuesPayment
+                var paymentDto = _mapper.Map<PaymentDto>(paymentForAddDto);
+                var url = "https://localhost:44326/api/payments";
+                var json = JsonConvert.SerializeObject(paymentDto);
+                var data = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync(url, data);
+                var resultJson = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
                 {
-                    DuesId = paymentForAddDto.DuesId,
-                    CreatedAt = DateTime.Now,
-                    UserId = paymentForAddDto.UserId
-                };
-                _duesPaymentService.Add(paymentToAdd);
+                    var paymentToAdd = new DuesPayment
+                    {
+                        DuesId = paymentForAddDto.DuesId,
+                        CreatedAt = DateTime.Now,
+                        UserId = paymentForAddDto.UserId
+                    };
+                    _duesPaymentService.Add(paymentToAdd);
+                }
+                else
+                {
+                    return new ErrorResult();
+                }
 
             }
-            // var result = JsonConvert.DeserializeObject<SuccessResult>(resultJson);
+            catch (Exception e)
+            {
+                return new ErrorResult("Başarısız" + e.Message.ToString());
+            }
             return new SuccessResult("Ödeme gerçekleştirildi");
         }
 
         public async Task<CreditCard> GetUserCard(string id)
         {
-            var url = $"https://localhost:44326/api/creditcards/getbyid?id={id}";
-            var resultJson = await _httpClient.GetStringAsync(url);
-            return JsonConvert.DeserializeObject<CreditCard>(resultJson); 
+            try
+            {
+                var url = $"https://localhost:44326/api/creditcards/getbyid?id={id}";
+                var resultJson = await _httpClient.GetStringAsync(url);
+                return JsonConvert.DeserializeObject<CreditCard>(resultJson);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            
         }
     }
 }

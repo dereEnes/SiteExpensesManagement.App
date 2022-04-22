@@ -36,17 +36,15 @@ namespace Payment.API.Services
             if (await GetAsync(creditCard.UserId) is null)
             {
                 await _creditCardCollection.InsertOneAsync(creditCard);
+                // kredi kartı eklendiğinde random bütçe girmek için
+                Random rnd = new Random();
+                Balance balance = new Balance
+                {
+                    CardNumber = creditCard.CardNumber,
+                    Amount = rnd.Next(50, 800)
+                };
+                await _balanceService.CreateAsync(balance);
             }
-
-            // kredi kartı eklendiğinde random bütçe girmek için
-            Random rnd = new Random();
-            Balance balance = new Balance
-            {
-                CardNumber = creditCard.CardNumber,
-                Amount = rnd.Next(50, 800)
-            };
-            await _balanceService.CreateAsync(balance);
-            
         }
            
 
