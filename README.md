@@ -4,6 +4,36 @@ dereEnes/SiteExpensesManagement.App
 # PatikaDev-Logo-Net-Bootcamp Graduation Project
 Aparments management app with .Net Core 3.1 MVC & API. API only for payment bring user credit card, add credit card info, check balance etc. Rest of the things in .Net core web app. There are a lot of pages; CRUD for apartments,cars, rooms, bills and dues also there is a page for sending messages to admin.
 
+# .Net Core Bitirme Projesi
+
+* Bir sitede yöneticisiniz. Sitenizde yer alan dairelerin aidat ve ortak kullanım
+elektrik, su ve doğalgaz faturalarının yönetimini bir sistem üzerinden yapacaksınız.
+İki tip kullanıcınız var:
+
+**1-Admin/Yönetici**
+-  Daire bilgilerini girebilir.
+-  İkamet eden kullanıcı bilgilerini girer.
+- Daire başına ödenmesi gereken aidat ve fatura bilgilerini girer(Aylık olarak). Toplu veya
+tek tek atama yapılabilir.
+- Gelen ödeme bilgilerini görür.
+- Gelen mesajları görür.
+- Mesajların okunmuş/okunmamış/yeni mesaj olduğu anlaşılmalı.
+- Aylık olarak borç-alacak listesini görür.
+- Kişileri listeler, düzenler, siler.
+- Daire/konut bilgilerini listeler, düzenler siler
+
+**2-Kullanıcı**
+- Kendisine atanan fatura ve aidat bilgilerini görür.
+- Sadece kredi kartı ile ödeme yapabilir.
+- Yöneticiye mesaj gönderebilir.
+- Mesajların okunmuş/okunmamış/yeni mesaj olduğu anlaşılmalı.
+- Yaptığı ödemelerini görür.
+- 
+### Kredi Kartı ile Ödeme Servisi:
+✔️ Sistemdeki her bir kullanıcı için banka bilgileri (bakiye, kredi kartı no vb.) kontrol edilerek ödeme yapılması sağlanır.  
+✔️ Ödeme sadece kredi kartı ile yapılabilir.  
+✔️ Veriler MongoDB'de tutulmalı. Servis .Net WebApi olarak yazılacaktır.  
+
 ### This is my UML class diagram
 ![uml](https://user-images.githubusercontent.com/78616137/164682631-64f86b6f-254d-4e90-ab0c-e1f0c65e5b8c.JPG)
 
